@@ -28,13 +28,16 @@ const HammingDistance: React.FC = () => {
   
   // 计算汉明距离
   const calculateHammingDistance = (x: number, y: number): number => {
-    const xor = x ^ y;
-    let count = 0;
-    let n = xor;
+    // 将数字转换为32位二进制字符串
+    const xBinary = x.toString(2).padStart(32, '0');
+    const yBinary = y.toString(2).padStart(32, '0');
     
-    while (n > 0) {
-      count += n & 1;
-      n >>= 1;
+    // 计算不同位的数量
+    let count = 0;
+    for (let i = 0; i < 32; i++) {
+      if (xBinary[i] !== yBinary[i]) {
+        count++;
+      }
     }
     
     return count;
