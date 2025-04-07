@@ -100,13 +100,9 @@
   transition: all 0.2s;
   padding: 0.25rem 0;
   position: relative; /* 为内部数字定位 */
+  animation: breatheBit 2.5s infinite; /* 单元格的呼吸效果 */
   cursor: pointer; /* 指示可交互 */
   transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* 只对值为1和不同位的单元格应用呼吸效果 */
-.bit-1, .bit-diff {
-  animation: breatheBit 2.5s infinite; /* 单元格的呼吸效果 */
 }
 
 @keyframes breatheBit {
@@ -119,36 +115,29 @@
 }
 
 /* 应用不同的动画延迟，让呼吸效果不同步 */
-.bit-1:nth-child(3n), .bit-diff:nth-child(3n) {
+.bit-cell:nth-child(3n) {
   animation-delay: 0.1s;
 }
 
-.bit-1:nth-child(3n+1), .bit-diff:nth-child(3n+1) {
+.bit-cell:nth-child(3n+1) {
   animation-delay: 0.3s;
 }
 
-.bit-1:nth-child(3n+2), .bit-diff:nth-child(3n+2) {
+.bit-cell:nth-child(3n+2) {
   animation-delay: 0.5s;
 }
 
 .bit-0 {
   background-color: #f0f0f0;
   color: #666;
-  /* 显式禁用所有动画和过渡效果 */
-  animation: none !important;
-  transition: none !important;
-}
-
-.bit-0 .bit-value {
-  animation: none !important;
-  transition: none !important;
 }
 
 .bit-0:hover {
-  /* 值为0的单元格，鼠标悬停时也不应有高亮动画，仅有轻微变化 */
-  background-color: #e8e8e8;
-  transform: none;
-  box-shadow: none;
+  background-color: #e3f2fd;
+  border-color: #2196F3;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+  z-index: 10;
 }
 
 .bit-1 {
@@ -202,10 +191,6 @@
 /* 位数字动画 */
 .bit-value {
   display: inline-block;
-}
-
-/* 只对有意义的单元格中的值应用呼吸效果 */
-.bit-1 .bit-value, .bit-diff .bit-value {
   animation: breatheValue 2.5s infinite ease-in-out;
 }
 
@@ -225,7 +210,7 @@
 }
 
 .bit-value-animated {
-  animation: bounce 0.5s ease-out !important;
+  animation: bounce 0.5s ease-out;
 }
 
 @keyframes bounce {

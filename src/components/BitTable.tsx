@@ -63,15 +63,15 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
     
     // 设置工具提示内容
     if (type === 'num1') {
-      tooltip.textContent = `整数1的第${index}位: ${value}`;
+      tooltip.textContent = `整数1的第${31-index}位: ${value}`;
     } else if (type === 'num2') {
-      tooltip.textContent = `整数2的第${index}位: ${value}`;
+      tooltip.textContent = `整数2的第${31-index}位: ${value}`;
     } else if (type === 'diff') {
       const isDiff = num1Binary[position] !== num2Binary[position];
       if (isDiff) {
-        tooltip.textContent = `第${index}位不同: ${num1Binary[position]} ≠ ${num2Binary[position]}`;
+        tooltip.textContent = `第${31-index}位不同: ${num1Binary[position]} ≠ ${num2Binary[position]}`;
       } else {
-        tooltip.textContent = `第${index}位相同: ${num1Binary[position]} = ${num2Binary[position]}`;
+        tooltip.textContent = `第${31-index}位相同: ${num1Binary[position]} = ${num2Binary[position]}`;
       }
     }
     
@@ -159,37 +159,14 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
       }, 800);
     }
     
-    // 只为不同位（红色方块）添加动画
-    const diffCells = document.querySelectorAll('.bit-diff');
-    diffCells.forEach((cell) => {
-      cell.classList.add('bit-diff-animated');
+    // 为位数字添加动画
+    const bitValues = document.querySelectorAll('.bit-value');
+    bitValues.forEach((value) => {
+      value.classList.add('bit-value-animated');
       
       setTimeout(() => {
-        cell.classList.remove('bit-diff-animated');
-      }, 800);
-    });
-    
-    // 仅为值为1的单元格添加动画
-    const valueCells = document.querySelectorAll('.bit-1');
-    valueCells.forEach((cell) => {
-      const valueSpan = cell.querySelector('.bit-value');
-      if (valueSpan) {
-        valueSpan.classList.add('bit-value-animated');
-        
-        setTimeout(() => {
-          valueSpan.classList.remove('bit-value-animated');
-        }, 500);
-      }
-    });
-    
-    // 移除值为0的单元格的所有动画类
-    const zeroCells = document.querySelectorAll('.bit-0');
-    zeroCells.forEach((cell) => {
-      cell.classList.remove('bit-diff-animated');
-      const valueSpan = cell.querySelector('.bit-value');
-      if (valueSpan) {
-        valueSpan.classList.remove('bit-value-animated');
-      }
+        value.classList.remove('bit-value-animated');
+      }, 500);
     });
   }, [num1, num2]);
   
