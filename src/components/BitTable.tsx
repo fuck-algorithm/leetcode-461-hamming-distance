@@ -159,7 +159,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
       }, 800);
     }
     
-    // 只为不同位（值为1的单元格）和有值的单元格添加动画
+    // 只为不同位（红色方块）添加动画
     const diffCells = document.querySelectorAll('.bit-diff');
     diffCells.forEach((cell) => {
       cell.classList.add('bit-diff-animated');
@@ -169,7 +169,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
       }, 800);
     });
     
-    // 为值为1的单元格添加动画
+    // 仅为值为1的单元格添加动画
     const valueCells = document.querySelectorAll('.bit-1');
     valueCells.forEach((cell) => {
       const valueSpan = cell.querySelector('.bit-value');
@@ -179,6 +179,16 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
         setTimeout(() => {
           valueSpan.classList.remove('bit-value-animated');
         }, 500);
+      }
+    });
+    
+    // 移除值为0的单元格的所有动画类
+    const zeroCells = document.querySelectorAll('.bit-0');
+    zeroCells.forEach((cell) => {
+      cell.classList.remove('bit-diff-animated');
+      const valueSpan = cell.querySelector('.bit-value');
+      if (valueSpan) {
+        valueSpan.classList.remove('bit-value-animated');
       }
     });
   }, [num1, num2]);

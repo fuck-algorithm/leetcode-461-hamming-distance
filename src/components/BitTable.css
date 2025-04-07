@@ -134,14 +134,21 @@
 .bit-0 {
   background-color: #f0f0f0;
   color: #666;
+  /* 显式禁用所有动画和过渡效果 */
+  animation: none !important;
+  transition: none !important;
+}
+
+.bit-0 .bit-value {
+  animation: none !important;
+  transition: none !important;
 }
 
 .bit-0:hover {
-  background-color: #e3f2fd;
-  border-color: #2196F3;
-  transform: scale(1.05);
-  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
-  z-index: 10;
+  /* 值为0的单元格，鼠标悬停时也不应有高亮动画，仅有轻微变化 */
+  background-color: #e8e8e8;
+  transform: none;
+  box-shadow: none;
 }
 
 .bit-1 {

@@ -79,6 +79,16 @@ const HammingDistance: React.FC = () => {
       }, index * 50); // 每个位置的动画延迟50ms
     });
     
+    // 确保值为0的单元格不会有动画效果
+    const zeroCells = document.querySelectorAll('.bit-0');
+    zeroCells.forEach((cell) => {
+      cell.classList.remove('bit-diff-animated');
+      const valueSpan = cell.querySelector('.bit-value');
+      if (valueSpan) {
+        valueSpan.classList.remove('bit-value-animated');
+      }
+    });
+    
     // 为表格添加动画效果
     const tableContainer = document.querySelector('.bit-table-container');
     if (tableContainer) {
