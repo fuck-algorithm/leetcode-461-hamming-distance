@@ -78,6 +78,15 @@ const HammingDistance: React.FC = () => {
         bit.classList.add('bit-diff-animated');
       }, index * 50); // 每个位置的动画延迟50ms
     });
+    
+    // 为表格添加动画效果
+    const tableContainer = document.querySelector('.bit-table-container');
+    if (tableContainer) {
+      tableContainer.classList.add('bit-table-container-animated');
+      setTimeout(() => {
+        tableContainer.classList.remove('bit-table-container-animated');
+      }, 800);
+    }
   };
   
   // 计算汉明距离

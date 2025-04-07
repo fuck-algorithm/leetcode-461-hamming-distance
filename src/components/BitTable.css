@@ -3,6 +3,16 @@
   margin-top: 1rem;
   font-family: 'Courier New', monospace;
   overflow-x: auto;
+  animation: float 5s infinite ease-in-out; /* 表格整体的浮动效果 */
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
 }
 
 .bit-table-wrapper h3 {
@@ -19,6 +29,20 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   padding: 1rem;
   overflow-x: auto;
+  transition: opacity 0.5s ease; /* 为淡入效果添加过渡 */
+}
+
+.bit-table-container-animated {
+  animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .bit-table {
@@ -33,6 +57,16 @@
   color: #666;
   text-align: center;
   border-bottom: 2px solid #ddd;
+  animation: breatheHeader 3s infinite ease-in-out; /* 表头的呼吸效果 */
+}
+
+@keyframes breatheHeader {
+  0%, 100% {
+    color: #666;
+  }
+  50% {
+    color: #333;
+  }
 }
 
 /* 不再使用固定宽度，改为内联样式动态控制 */
@@ -65,6 +99,30 @@
   border: 1px solid #eee;
   transition: all 0.2s;
   padding: 0.25rem 0;
+  position: relative; /* 为内部数字定位 */
+  animation: breatheBit 2.5s infinite; /* 单元格的呼吸效果 */
+}
+
+@keyframes breatheBit {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+/* 应用不同的动画延迟，让呼吸效果不同步 */
+.bit-cell:nth-child(3n) {
+  animation-delay: 0.1s;
+}
+
+.bit-cell:nth-child(3n+1) {
+  animation-delay: 0.3s;
+}
+
+.bit-cell:nth-child(3n+2) {
+  animation-delay: 0.5s;
 }
 
 .bit-0 {
@@ -85,18 +143,52 @@
 /* 波浪动画 */
 .bit-diff-animated {
   animation: wave 1s ease-in-out;
+  z-index: 2; /* 确保动画元素在上层 */
 }
 
 @keyframes wave {
   0% {
     background-color: #FF5252;
+    transform: scale(1);
   }
   50% {
     background-color: #FF7676;
-    transform: scale(1.1);
+    transform: scale(1.15);
+    box-shadow: 0 0 8px rgba(255, 82, 82, 0.7);
   }
   100% {
     background-color: #FF5252;
+    transform: scale(1);
+  }
+}
+
+/* 位数字动画 */
+.bit-value {
+  display: inline-block;
+  animation: breatheValue 2.5s infinite ease-in-out;
+}
+
+@keyframes breatheValue {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(0.95);
+  }
+}
+
+.bit-value-animated {
+  animation: bounce 0.5s ease-out;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
   }
 }
 

@@ -38,6 +38,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   
   // 组件挂载后计算布局
   const containerRef = useRef<HTMLDivElement>(null);
+  const tableContainerRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLTableCellElement>(null);
   
   // 估算字符串所需的宽度
@@ -90,6 +91,31 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
     setCellSize(Math.min(Math.max(calculatedCellSize, 20), 40)); // 设置最小20px，最大40px
   }, [num1String, num2String]);
   
+  // 当num1或num2更改时触发表格动画
+  useEffect(() => {
+    // 添加表格容器动画
+    if (tableContainerRef.current) {
+      tableContainerRef.current.classList.add('bit-table-container-animated');
+      
+      // 动画结束后移除类
+      setTimeout(() => {
+        if (tableContainerRef.current) {
+          tableContainerRef.current.classList.remove('bit-table-container-animated');
+        }
+      }, 800);
+    }
+    
+    // 为位数字添加动画
+    const bitValues = document.querySelectorAll('.bit-value');
+    bitValues.forEach((value) => {
+      value.classList.add('bit-value-animated');
+      
+      setTimeout(() => {
+        value.classList.remove('bit-value-animated');
+      }, 500);
+    });
+  }, [num1, num2]);
+  
   // 数字格式化显示，同时返回格式化后的字符串供尺寸计算
   function formatNumber(num: number): string {
     // 对于大数，使用精简的格式
@@ -123,7 +149,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
     <div className={getTableClassNames()} ref={containerRef}>
       <h3>32位二进制表示</h3>
       
-      <div className="bit-table-container">
+      <div className="bit-table-container" ref={tableContainerRef}>
         <table className="bit-table" style={{ tableLayout: 'fixed' }}>
           <thead>
             <tr>
@@ -153,7 +179,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
                     className={`bit-cell ${bitValue === '1' ? 'bit-1' : 'bit-0'}`}
                     style={tableCellStyle}
                   >
-                    {bitValue}
+                    <span className="bit-value">{bitValue}</span>
                   </td>
                 );
               })}
@@ -171,7 +197,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
                     className={`bit-cell ${bitValue === '1' ? 'bit-1' : 'bit-0'}`}
                     style={tableCellStyle}
                   >
-                    {bitValue}
+                    <span className="bit-value">{bitValue}</span>
                   </td>
                 );
               })}
@@ -188,7 +214,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
                     style={tableCellStyle}
                     data-position={position}
                   >
-                    {isDiff ? '1' : '0'}
+                    <span className="bit-value">{isDiff ? '1' : '0'}</span>
                   </td>
                 );
               })}
