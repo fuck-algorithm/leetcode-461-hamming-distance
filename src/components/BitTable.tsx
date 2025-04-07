@@ -186,6 +186,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
                     key={`diff-${index}`}
                     className={`bit-cell ${isDiff ? 'bit-diff' : 'bit-0'}`}
                     style={tableCellStyle}
+                    data-position={position}
                   >
                     {isDiff ? '1' : '0'}
                   </td>

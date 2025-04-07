@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './HammingDistance.css';
 import BitTable from './BitTable';
 
@@ -25,6 +25,60 @@ const HammingDistance: React.FC = () => {
   const [num1, setNum1] = useState<number>(getRandomNumber(initialIsLarge));
   const [num2, setNum2] = useState<number>(getRandomNumber(initialIsLarge));
   const [distance, setDistance] = useState<number>(0);
+  
+  // 按钮引用
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  // 值容器引用
+  const valueRef = useRef<HTMLSpanElement>(null);
+  
+  // 创建波纹效果
+  const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const button = buttonRef.current;
+    if (!button) return;
+    
+    const circle = document.createElement("span");
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+    
+    // 获取点击位置相对于按钮的坐标
+    const rect = button.getBoundingClientRect();
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${event.clientX - rect.left - radius}px`;
+    circle.style.top = `${event.clientY - rect.top - radius}px`;
+    circle.classList.add("ripple");
+    
+    // 移除旧的波纹
+    const ripple = button.getElementsByClassName("ripple")[0];
+    if (ripple) {
+      ripple.remove();
+    }
+    
+    // 添加新的波纹
+    button.appendChild(circle);
+    
+    // 为距离值添加动画
+    if (valueRef.current) {
+      valueRef.current.classList.add('distance-value-animated');
+      setTimeout(() => {
+        if (valueRef.current) {
+          valueRef.current.classList.remove('distance-value-animated');
+        }
+      }, 500);
+    }
+    
+    // 为二进制表格中的不同位添加动画
+    const diffBits = document.querySelectorAll('.bit-diff');
+    diffBits.forEach((bit, index) => {
+      // 移除旧的动画类
+      bit.classList.remove('bit-diff-animated');
+      // 重新触发动画流程
+      void (bit as HTMLElement).offsetWidth; // 强制重绘
+      // 添加动画类，并设置延迟
+      setTimeout(() => {
+        bit.classList.add('bit-diff-animated');
+      }, index * 50); // 每个位置的动画延迟50ms
+    });
+  };
   
   // 计算汉明距离
   const calculateHammingDistance = (x: number, y: number): number => {
@@ -82,7 +136,10 @@ const HammingDistance: React.FC = () => {
   };
 
   // 生成范围内的随机数
-  const generateRandomNumbers = () => {
+  const generateRandomNumbers = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // 创建波纹效果
+    createRipple(e);
+    
     // 随机选择生成小数值还是大数值，增加随机性
     const generateLargeNumber = Math.random() > 0.5;
     
@@ -134,7 +191,11 @@ const HammingDistance: React.FC = () => {
         </div>
         
         <div className="button-field">
-          <button className="random-button" onClick={generateRandomNumbers}>
+          <button 
+            className="random-button" 
+            onClick={generateRandomNumbers}
+            ref={buttonRef}
+          >
             🎲 随机示例
           </button>
         </div>
@@ -142,7 +203,7 @@ const HammingDistance: React.FC = () => {
 
       <div className="result-section">
         <h2>
-          汉明距离: <span className="distance-value">{distance}</span>
+          汉明距离: <span className="distance-value" ref={valueRef}>{distance}</span>
         </h2>
       </div>
 
