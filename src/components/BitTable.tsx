@@ -63,15 +63,15 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
     
     // 设置工具提示内容
     if (type === 'num1') {
-      tooltip.textContent = `整数1的第${31-index}位: ${value}`;
+      tooltip.textContent = `整数1的第${index}位: ${value}`;
     } else if (type === 'num2') {
-      tooltip.textContent = `整数2的第${31-index}位: ${value}`;
+      tooltip.textContent = `整数2的第${index}位: ${value}`;
     } else if (type === 'diff') {
       const isDiff = num1Binary[position] !== num2Binary[position];
       if (isDiff) {
-        tooltip.textContent = `第${31-index}位不同: ${num1Binary[position]} ≠ ${num2Binary[position]}`;
+        tooltip.textContent = `第${index}位不同: ${num1Binary[position]} ≠ ${num2Binary[position]}`;
       } else {
-        tooltip.textContent = `第${31-index}位相同: ${num1Binary[position]} = ${num2Binary[position]}`;
+        tooltip.textContent = `第${index}位相同: ${num1Binary[position]} = ${num2Binary[position]}`;
       }
     }
     
