@@ -1,0 +1,151 @@
+.hamming-distance-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 新的输入行布局 */
+.input-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end; /* 确保所有元素底部对齐 */
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 200px;
+}
+
+.button-field {
+  display: flex;
+  align-items: flex-end; /* 底部对齐 */
+  height: 100%;
+  padding-bottom: 1.5rem; /* 与输入框底部对齐的调整 */
+}
+
+/* 标签样式 */
+.input-field label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 输入框样式 */
+.input-field input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+.input-field input:focus {
+  outline: none;
+  border-color: #4285f4;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+.input-field input:invalid {
+  border-color: #e53935;
+  box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2);
+}
+
+.input-field small {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* 按钮样式 */
+.random-button {
+  background-color: #34a853;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  height: 44px; /* 与输入框高度一致 */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.random-button:hover {
+  background-color: #2a7e43;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.result-section {
+  text-align: center;
+}
+
+.result-section h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+}
+
+.distance-value {
+  color: #4285f4;
+  font-weight: bold;
+}
+
+.visualization-section {
+  width: 100%;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .hamming-distance-container {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+  
+  .input-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .input-field {
+    width: 100%;
+  }
+  
+  .input-field input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    height: 38px;
+  }
+  
+  .button-field {
+    padding-bottom: 0;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .random-button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    height: 38px;
+  }
+  
+  .result-section h2 {
+    font-size: 1.5rem;
+  }
+} 

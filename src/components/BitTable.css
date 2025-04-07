@@ -1,0 +1,116 @@
+.bit-table-wrapper {
+  width: 100%;
+  margin-top: 1rem;
+  font-family: 'Courier New', monospace;
+  overflow-x: auto;
+}
+
+.bit-table-wrapper h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.bit-table-container {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.bit-table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.bit-header {
+  padding: 0.25rem 0;
+  font-size: 0.8rem;
+  color: #666;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+}
+
+/* 不再使用固定宽度，改为内联样式动态控制 */
+.bit-label {
+  text-align: right;
+  padding-right: 0.5rem;
+  font-weight: normal;
+  white-space: nowrap;
+  overflow: visible;
+  font-size: 0.9rem;
+  position: sticky;
+  left: 0;
+  background-color: white;
+  z-index: 1;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+/* 大数字的样式 */
+.large-number .bit-label {
+  font-size: 0.8rem;
+}
+
+.extra-large-number .bit-label {
+  font-size: 0.75rem;
+}
+
+.bit-cell {
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+  padding: 0.25rem 0;
+}
+
+.bit-0 {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.bit-1 {
+  background-color: #4285f4;
+  color: white;
+}
+
+.bit-diff {
+  background-color: #ea4335;
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .bit-header {
+    font-size: 0.7rem;
+  }
+  
+  .bit-cell {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .bit-header, .bit-cell {
+    font-size: 0.6rem;
+  }
+  
+  .bit-table-wrapper h3 {
+    font-size: 1.1rem;
+  }
+  
+  .large-number .bit-label,
+  .extra-large-number .bit-label {
+    font-size: 0.7rem;
+  }
+} 

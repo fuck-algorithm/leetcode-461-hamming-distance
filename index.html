@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>汉明距离可视化 - LeetCode 461</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .bit-container {
+            margin: 20px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .bit {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            margin: 2px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .bit-0 {
+            background: #e0e0e0;
+        }
+        .bit-1 {
+            background: #4285f4;
+            color: white;
+        }
+        .bit-diff {
+            background: #ea4335;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% {transform: scale(1)}
+            50% {transform: scale(1.1)}
+            100% {transform: scale(1)}
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        #calculate {
+            background: #4285f4;
+            color: white;
+        }
+        #calculate:hover {
+            background: #3367d6;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #random {
+            background: #34a853;
+            color: white;
+            margin-left: 10px;
+        }
+        #random:hover {
+            background: #2a7e43;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .row {
+            margin-bottom: 10px;
+        }
+        .label {
+            display: inline-block;
+            min-width: 120px;
+            font-weight: bold;
+        }
+        .input-group {
+            margin: 25px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        input[type="number"] {
+            padding: 12px 15px;
+            width: 180px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset;
+        }
+        input[type="number"]:focus {
+            border-color: #4285f4;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66,133,244,0.3);
+        }
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .hamming-result {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+        .hamming-value {
+            color: #4285f4;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
