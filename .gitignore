@@ -22,6 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
 # 编辑器配置
 .vscode/*
@@ -36,4 +37,27 @@ pnpm-debug.log*
 *.sw?
 
 # TypeScript
-*.tsbuildinfo 
+*.tsbuildinfo
+node_modules
+.node_repl_history
+
+# 本地文件
+.local
+.history
+.temp
+.cache
+
+# 临时文件
+tmp/
+temp/
+
+# 打包文件
+*.tgz
+*.zip
+*.rar
+*.tar.gz
+
+# 系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini 
