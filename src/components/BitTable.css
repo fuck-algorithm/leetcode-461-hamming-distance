@@ -101,6 +101,8 @@
   padding: 0.25rem 0;
   position: relative; /* 为内部数字定位 */
   animation: breatheBit 2.5s infinite; /* 单元格的呼吸效果 */
+  cursor: pointer; /* 指示可交互 */
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 @keyframes breatheBit {
@@ -130,14 +132,38 @@
   color: #666;
 }
 
+.bit-0:hover {
+  background-color: #e3f2fd;
+  border-color: #2196F3;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+  z-index: 10;
+}
+
 .bit-1 {
   background-color: #4285f4;
   color: white;
 }
 
+.bit-1:hover {
+  background-color: #1a73e8;
+  border-color: #0d47a1;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(13, 71, 161, 0.7);
+  z-index: 10;
+}
+
 .bit-diff {
   background-color: #ea4335;
   color: white;
+}
+
+.bit-diff:hover {
+  background-color: #ff8a80;
+  border-color: #c62828;
+  transform: scale(1.05);
+  box-shadow: 0 0 5px rgba(198, 40, 40, 0.7);
+  z-index: 10;
 }
 
 /* 波浪动画 */
@@ -166,6 +192,10 @@
 .bit-value {
   display: inline-block;
   animation: breatheValue 2.5s infinite ease-in-out;
+}
+
+.bit-cell:hover .bit-value {
+  animation: bounce 0.5s ease-out;
 }
 
 @keyframes breatheValue {
@@ -216,4 +246,41 @@
   .extra-large-number .bit-label {
     font-size: 0.7rem;
   }
+}
+
+/* 工具提示样式 */
+.bit-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: rgba(33, 33, 33, 0.9);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1000;
+  text-align: center;
+  min-width: 100px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.bit-tooltip:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(33, 33, 33, 0.9) transparent transparent transparent;
+}
+
+.bit-tooltip.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 } 

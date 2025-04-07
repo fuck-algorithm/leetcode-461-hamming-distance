@@ -41,6 +41,60 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLTableCellElement>(null);
   
+  // 处理单元格鼠标悬停事件
+  const handleCellMouseOver = (
+    event: React.MouseEvent<HTMLTableCellElement>, 
+    position: number, 
+    value: string, 
+    type: string, 
+    index: number
+  ) => {
+    const cell = event.currentTarget;
+    
+    // 移除已有的提示
+    const existingTooltip = document.querySelector('.bit-tooltip');
+    if (existingTooltip) {
+      existingTooltip.remove();
+    }
+    
+    // 创建工具提示
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('bit-tooltip');
+    
+    // 设置工具提示内容
+    if (type === 'num1') {
+      tooltip.textContent = `整数1的第${31-index}位: ${value}`;
+    } else if (type === 'num2') {
+      tooltip.textContent = `整数2的第${31-index}位: ${value}`;
+    } else if (type === 'diff') {
+      const isDiff = num1Binary[position] !== num2Binary[position];
+      if (isDiff) {
+        tooltip.textContent = `第${31-index}位不同: ${num1Binary[position]} ≠ ${num2Binary[position]}`;
+      } else {
+        tooltip.textContent = `第${31-index}位相同: ${num1Binary[position]} = ${num2Binary[position]}`;
+      }
+    }
+    
+    // 添加工具提示到单元格
+    cell.appendChild(tooltip);
+    
+    // 显示工具提示
+    setTimeout(() => {
+      tooltip.classList.add('visible');
+    }, 10);
+  };
+  
+  // 处理单元格鼠标离开事件
+  const handleCellMouseOut = () => {
+    const tooltip = document.querySelector('.bit-tooltip');
+    if (tooltip) {
+      tooltip.classList.remove('visible');
+      setTimeout(() => {
+        tooltip.remove();
+      }, 300);
+    }
+  };
+  
   // 估算字符串所需的宽度
   // 不同字符宽度不同，数字和标点通常比字母窄
   const estimateStringWidth = (str: string): number => {
@@ -178,6 +232,10 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
                     key={`num1-${index}`}
                     className={`bit-cell ${bitValue === '1' ? 'bit-1' : 'bit-0'}`}
                     style={tableCellStyle}
+                    data-position={position}
+                    data-value={bitValue}
+                    onMouseOver={(event) => handleCellMouseOver(event, position, bitValue, 'num1', index)}
+                    onMouseOut={handleCellMouseOut}
                   >
                     <span className="bit-value">{bitValue}</span>
                   </td>
@@ -196,6 +254,10 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
                     key={`num2-${index}`}
                     className={`bit-cell ${bitValue === '1' ? 'bit-1' : 'bit-0'}`}
                     style={tableCellStyle}
+                    data-position={position}
+                    data-value={bitValue}
+                    onMouseOver={(event) => handleCellMouseOver(event, position, bitValue, 'num2', index)}
+                    onMouseOut={handleCellMouseOut}
                   >
                     <span className="bit-value">{bitValue}</span>
                   </td>
@@ -213,6 +275,9 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
                     className={`bit-cell ${isDiff ? 'bit-diff' : 'bit-0'}`}
                     style={tableCellStyle}
                     data-position={position}
+                    data-value={isDiff ? '1' : '0'}
+                    onMouseOver={(event) => handleCellMouseOver(event, position, isDiff ? '1' : '0', 'diff', index)}
+                    onMouseOut={handleCellMouseOut}
                   >
                     <span className="bit-value">{isDiff ? '1' : '0'}</span>
                   </td>
