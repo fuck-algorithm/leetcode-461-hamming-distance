@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react';
 import './App.css';
 import HammingDistance from './components/HammingDistance';

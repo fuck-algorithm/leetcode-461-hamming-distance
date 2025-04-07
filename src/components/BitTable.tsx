@@ -4,10 +4,9 @@ import './BitTable.css';
 interface BitTableProps {
   num1: number;
   num2: number;
-  hammingDistance: number;
 }
 
-const BitTable: React.FC<BitTableProps> = ({ num1, num2, hammingDistance }) => {
+const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   // 将数字转换为32位二进制字符串
   const num1Binary = num1.toString(2).padStart(32, '0');
   const num2Binary = num2.toString(2).padStart(32, '0');

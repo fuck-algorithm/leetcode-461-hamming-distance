@@ -135,7 +135,6 @@ const HammingDistance: React.FC = () => {
         <BitTable 
           num1={num1} 
           num2={num2} 
-          hammingDistance={distance} 
         />
       </div>
     </div>
