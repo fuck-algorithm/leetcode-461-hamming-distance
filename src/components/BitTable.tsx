@@ -11,6 +11,19 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   const num1Binary = num1.toString(2).padStart(32, '0');
   const num2Binary = num2.toString(2).padStart(32, '0');
   
+  // 计算不同位数
+  let diffCount = 0;
+  for (let i = 0; i < 32; i++) {
+    if (num1Binary[i] !== num2Binary[i]) {
+      diffCount++;
+    }
+  }
+  
+  console.log("BitTable 组件中的值:");
+  console.log(`num1: ${num1} (${num1Binary})`);
+  console.log(`num2: ${num2} (${num2Binary})`);
+  console.log(`不同位数: ${diffCount}`);
+  
   // 创建一个从31到0的位索引数组
   const bitIndices = Array.from({ length: 32 }, (_, i) => 31 - i);
   

@@ -28,19 +28,28 @@ const HammingDistance: React.FC = () => {
   
   // 计算汉明距离
   const calculateHammingDistance = (x: number, y: number): number => {
-    // 将数字转换为32位二进制字符串
-    const xBinary = x.toString(2).padStart(32, '0');
-    const yBinary = y.toString(2).padStart(32, '0');
+    // 重要：确保 x 和 y 是数字
+    const num1 = typeof x === 'number' ? x : parseInt(String(x)) || 0;
+    const num2 = typeof y === 'number' ? y : parseInt(String(y)) || 0;
     
-    // 计算不同位的数量
-    let count = 0;
+    // 使用与 BitTable 完全相同的方法计算二进制表示
+    const num1Binary = num1.toString(2).padStart(32, '0');
+    const num2Binary = num2.toString(2).padStart(32, '0');
+    
+    console.log("HammingDistance 组件中的值:");
+    console.log(`num1: ${num1} (${num1Binary})`);
+    console.log(`num2: ${num2} (${num2Binary})`);
+    
+    // 计算不同位的数量 - 与 BitTable 相同的实现
+    let diffCount = 0;
     for (let i = 0; i < 32; i++) {
-      if (xBinary[i] !== yBinary[i]) {
-        count++;
+      if (num1Binary[i] !== num2Binary[i]) {
+        diffCount++;
       }
     }
     
-    return count;
+    console.log(`计算出的汉明距离: ${diffCount}`);
+    return diffCount;
   };
 
   // 更新计算结果
@@ -50,6 +59,7 @@ const HammingDistance: React.FC = () => {
     
     // 计算汉明距离
     const hammingDist = calculateHammingDistance(x, y);
+    console.log(`设置汉明距离: ${hammingDist}`);
     setDistance(hammingDist);
   };
 
@@ -80,15 +90,17 @@ const HammingDistance: React.FC = () => {
     setNum2(getRandomNumber(generateLargeNumber));
   };
 
-  // 当输入变化时重新计算
-  useEffect(() => {
-    updateCalculation();
-  }, [num1, num2]);
-  
   // 初始化时计算汉明距离
   useEffect(() => {
+    console.log("初始化计算");
     updateCalculation();
   }, []);
+
+  // 当输入变化时重新计算
+  useEffect(() => {
+    console.log(`输入变化: num1=${num1}, num2=${num2}`);
+    updateCalculation();
+  }, [num1, num2]);
 
   return (
     <div className="hamming-distance-container">
