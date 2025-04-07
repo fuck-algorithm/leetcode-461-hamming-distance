@@ -159,14 +159,27 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
       }, 800);
     }
     
-    // 为位数字添加动画
-    const bitValues = document.querySelectorAll('.bit-value');
-    bitValues.forEach((value) => {
-      value.classList.add('bit-value-animated');
+    // 只为不同位（值为1的单元格）和有值的单元格添加动画
+    const diffCells = document.querySelectorAll('.bit-diff');
+    diffCells.forEach((cell) => {
+      cell.classList.add('bit-diff-animated');
       
       setTimeout(() => {
-        value.classList.remove('bit-value-animated');
-      }, 500);
+        cell.classList.remove('bit-diff-animated');
+      }, 800);
+    });
+    
+    // 为值为1的单元格添加动画
+    const valueCells = document.querySelectorAll('.bit-1');
+    valueCells.forEach((cell) => {
+      const valueSpan = cell.querySelector('.bit-value');
+      if (valueSpan) {
+        valueSpan.classList.add('bit-value-animated');
+        
+        setTimeout(() => {
+          valueSpan.classList.remove('bit-value-animated');
+        }, 500);
+      }
     });
   }, [num1, num2]);
   

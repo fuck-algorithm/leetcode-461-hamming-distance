@@ -100,9 +100,13 @@
   transition: all 0.2s;
   padding: 0.25rem 0;
   position: relative; /* 为内部数字定位 */
-  animation: breatheBit 2.5s infinite; /* 单元格的呼吸效果 */
   cursor: pointer; /* 指示可交互 */
   transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 只对值为1和不同位的单元格应用呼吸效果 */
+.bit-1, .bit-diff {
+  animation: breatheBit 2.5s infinite; /* 单元格的呼吸效果 */
 }
 
 @keyframes breatheBit {
@@ -115,15 +119,15 @@
 }
 
 /* 应用不同的动画延迟，让呼吸效果不同步 */
-.bit-cell:nth-child(3n) {
+.bit-1:nth-child(3n), .bit-diff:nth-child(3n) {
   animation-delay: 0.1s;
 }
 
-.bit-cell:nth-child(3n+1) {
+.bit-1:nth-child(3n+1), .bit-diff:nth-child(3n+1) {
   animation-delay: 0.3s;
 }
 
-.bit-cell:nth-child(3n+2) {
+.bit-1:nth-child(3n+2), .bit-diff:nth-child(3n+2) {
   animation-delay: 0.5s;
 }
 
@@ -191,6 +195,10 @@
 /* 位数字动画 */
 .bit-value {
   display: inline-block;
+}
+
+/* 只对有意义的单元格中的值应用呼吸效果 */
+.bit-1 .bit-value, .bit-diff .bit-value {
   animation: breatheValue 2.5s infinite ease-in-out;
 }
 
@@ -210,7 +218,7 @@
 }
 
 .bit-value-animated {
-  animation: bounce 0.5s ease-out;
+  animation: bounce 0.5s ease-out !important;
 }
 
 @keyframes bounce {
