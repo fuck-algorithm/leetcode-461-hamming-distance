@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TableRowProps } from './types';
 
 const TableRow: React.FC<TableRowProps> = ({
@@ -15,6 +16,8 @@ const TableRow: React.FC<TableRowProps> = ({
   formatNumber,
   numValue
 }) => {
+  const { t } = useTranslation();
+  
   // 追踪点击的单元格
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
 
@@ -27,23 +30,37 @@ const TableRow: React.FC<TableRowProps> = ({
     }
   };
 
-  // 计算有效二进制位的最高位置
-  const highestBitPosition = useMemo(() => {
+  // 计算有效二进制位的信息
+  const { effectiveBits, highestBitPos } = useMemo(() => {
+    // 为每一位创建标记数组
+    const bits = new Array(32).fill(false);
+    let highest = -1;
+    
     if (type === 'diff') {
-      if (!num1Binary || !num2Binary) return -1;
-      
-      // 对于差异行，最高有效位是两个数字中较大的那个的最高有效位
-      const num1 = parseInt(num1Binary, 2);
-      const num2 = parseInt(num2Binary, 2);
-      const maxNum = Math.max(num1, num2);
-      
-      if (maxNum === 0) return -1;
-      return Math.floor(Math.log2(maxNum));
+      // 对于差异行，只显示两个数实际不同的位
+      if (num1Binary && num2Binary) {
+        for (let i = 0; i < 32; i++) {
+          // 标记实际不同的位
+          if (num1Binary[i] !== num2Binary[i]) {
+            bits[i] = true;
+            highest = Math.max(highest, i);
+          }
+        }
+      }
     } else {
-      // 对于普通数字行，直接计算最高有效位
-      if (numValue === 0) return -1;
-      return Math.floor(Math.log2(numValue));
+      // 对于普通数字行，显示从最高位1到最低位的所有位
+      if (numValue > 0) {
+        // 计算最高有效位
+        highest = Math.floor(Math.log2(numValue));
+        
+        // 标记所有有效位
+        for (let i = 0; i <= highest; i++) {
+          bits[31-i] = true;
+        }
+      }
     }
+    
+    return { effectiveBits: bits, highestBitPos: highest };
   }, [num1Binary, num2Binary, numValue, type]);
 
   return (
@@ -58,34 +75,35 @@ const TableRow: React.FC<TableRowProps> = ({
         
         let bitValue: string;
         let className: string;
-        let isUsedBit = false;
+        
+        // 检查该位是否是有效位
+        const isEffective = effectiveBits[binaryPosition];
         
         if (type === 'diff') {
           const isDiff = num1Binary && num2Binary && 
                         num1Binary[binaryPosition] !== num2Binary[binaryPosition];
           bitValue = isDiff ? '1' : '0';
           className = `bit-cell ${isDiff ? 'bit-diff' : 'bit-0'}`;
-          
-          // 对于差异行，有两种情况算作"有效"：
-          // 1. 这一位两个数字确实不同（isDiff为true）
-          // 2. 这一位在有效范围内（即位置 <= 最高有效位）
-          isUsedBit = isDiff || (highestBitPosition >= 0 && (31 - binaryPosition) <= highestBitPosition);
         } else {
           bitValue = binary[binaryPosition];
           className = `bit-cell ${bitValue === '1' ? 'bit-1' : 'bit-0'}`;
-          
-          // 对于数字行，有效位是从最低位到最高有效位的所有位
-          isUsedBit = highestBitPosition >= 0 && (31 - binaryPosition) <= highestBitPosition;
         }
 
-        // 如果位不是有效的，添加未使用类
-        if (!isUsedBit) {
+        // 添加有效位/未使用位的样式类
+        if (!isEffective) {
           className += ' unused';
+        } else {
+          className += ' effective-bit';
         }
 
         // 如果当前单元格被点击，添加激活类
         if (clickedIndex === displayIndex) {
           className += ' active';
+        }
+        
+        // 特殊标记：最高有效位
+        if (31 - binaryPosition === highestBitPos) {
+          className += ' highest-bit';
         }
         
         return (
@@ -95,9 +113,14 @@ const TableRow: React.FC<TableRowProps> = ({
             style={tableCellStyle}
             data-position={binaryPosition}
             data-value={bitValue}
+            data-bit-position={31 - binaryPosition}
+            data-effective={isEffective ? 'true' : 'false'}
             onMouseOver={(event) => handleCellMouseOver(event, binaryPosition, bitValue, type, displayIndex)}
             onMouseOut={handleCellMouseOut}
             onClick={() => handleCellClick(displayIndex)}
+            title={isEffective 
+              ? t('bitTable.effectiveBit', {position: 31 - binaryPosition}) 
+              : t('bitTable.unusedBit', {position: 31 - binaryPosition})}
           >
             <span className="bit-value">{bitValue}</span>
           </td>

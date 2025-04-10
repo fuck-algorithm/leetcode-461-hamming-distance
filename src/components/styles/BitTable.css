@@ -69,7 +69,7 @@
   padding: 10px;
   text-align: center;
   position: relative;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   width: 30px;
   height: 40px;
   border-bottom: 1px solid #e8e8e8;
@@ -176,29 +176,107 @@ tr:nth-child(2) .bit-cell {
   }
 }
 
-/* 添加未使用二进制位的样式 */
+/* 修改未使用二进制位的样式，增强对比度 */
 .bit-cell.unused {
-  background-color: #f5f5f5;
-  opacity: 0.7;
+  background-color: #f8f8f8 !important;
+  opacity: 0.4;
+  border: 1px dotted #ddd;
+  transform: scale(0.95);
 }
 
 .bit-cell.unused .bit-value {
-  color: #aaa;
+  color: #ccc;
 }
 
-.bit-cell.bit-1.unused {
-  background-color: rgba(144, 238, 144, 0.3);
+/* 有效位和未使用位之间添加明显分隔 */
+.bit-cell:not(.unused) {
+  position: relative;
+  z-index: 5;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.1);
 }
 
-.bit-cell.bit-0.unused {
-  background-color: rgba(240, 248, 255, 0.3);
+/* 有效位的数字1有特殊效果 */
+.bit-cell.bit-1:not(.unused) {
+  background-color: rgba(50, 205, 50, 0.8) !important;
+  font-weight: bold;
+  color: white;
 }
 
-.bit-cell.bit-diff.unused {
-  background-color: rgba(255, 182, 193, 0.3);
+.bit-cell.bit-0:not(.unused) {
+  background-color: rgba(135, 206, 250, 0.5) !important;
 }
 
-/* 为了强调有效位，增加一点过渡效果 */
-.bit-cell {
-  transition: background-color 0.2s ease;
+.bit-cell.bit-diff:not(.unused) {
+  background-color: rgba(255, 99, 71, 0.8) !important;
+  font-weight: bold;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(255,99,71,0.3);
+}
+
+/* 去掉tr:nth-child样式的背景色，以避免冲突 */
+tr:nth-child(1) .bit-cell,
+tr:nth-child(2) .bit-cell {
+  background: transparent;
+}
+
+/* 最高有效位的特殊样式 */
+.bit-cell.highest-bit {
+  position: relative;
+  overflow: visible;
+}
+
+.bit-cell.highest-bit::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #ff0000;
+}
+
+/* 有效位的强调效果 */
+.bit-cell.effective-bit {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* 确保有效位更加突出 */
+.bit-cell.effective-bit {
+  border: 2px solid rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.bit-cell.bit-1.effective-bit {
+  background-color: rgba(40, 167, 69, 0.8) !important;
+  font-weight: bold;
+  color: white;
+  border-color: rgba(40, 167, 69, 0.5);
+}
+
+.bit-cell.bit-0.effective-bit {
+  background-color: rgba(0, 123, 255, 0.5) !important;
+  border-color: rgba(0, 123, 255, 0.3);
+}
+
+.bit-cell.bit-diff.effective-bit {
+  background-color: rgba(220, 53, 69, 0.8) !important;
+  font-weight: bold;
+  color: white;
+  border-color: rgba(220, 53, 69, 0.5);
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 } 

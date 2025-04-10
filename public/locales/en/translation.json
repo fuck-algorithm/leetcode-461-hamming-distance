@@ -15,7 +15,9 @@
   "bitTable": {
     "int1": "Integer 1",
     "int2": "Integer 2",
-    "diffBits": "Different Bits"
+    "diffBits": "Different Bits",
+    "effectiveBit": "Effective Bit {{position}}",
+    "unusedBit": "Unused Bit {{position}}"
   },
   "validation": {
     "invalidNumber": "Please enter a valid integer",

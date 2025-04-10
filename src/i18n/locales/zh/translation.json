@@ -15,7 +15,9 @@
   "bitTable": {
     "int1": "整数1",
     "int2": "整数2",
-    "diffBits": "不同位"
+    "diffBits": "不同位",
+    "effectiveBit": "有效位 {{position}}",
+    "unusedBit": "未使用位 {{position}}"
   },
   "validation": {
     "invalidNumber": "请输入有效的整数",
