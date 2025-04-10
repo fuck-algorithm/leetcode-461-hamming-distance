@@ -11,8 +11,8 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   const num1Binary = num1.toString(2).padStart(32, '0');
   const num2Binary = num2.toString(2).padStart(32, '0');
   
-  // 创建一个从31到0的位索引数组
-  const bitIndices = Array.from({ length: 32 }, (_, i) => i);
+  // 创建一个从0到31的位索引数组（小端模式：低位在右，高位在左）
+  const bitIndices = Array.from({ length: 32 }, (_, i) => 31 - i);
   
   // 用于存储计算出的单元格尺寸
   const [cellSize, setCellSize] = useState(30);

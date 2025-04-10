@@ -22,7 +22,7 @@ const TableRow: React.FC<TableRowProps> = ({
       </td>
       
       {bitIndices.map(index => {
-        const position = 31 - index;
+        const position = index;
         let bitValue: string;
         let className: string;
         
