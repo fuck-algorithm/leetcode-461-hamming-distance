@@ -22,27 +22,29 @@ const TableRow: React.FC<TableRowProps> = ({
       </td>
       
       {bitIndices.map(index => {
-        const position = index;
+        const displayIndex = index;
+        const binaryPosition = 31 - displayIndex;
+        
         let bitValue: string;
         let className: string;
         
         if (type === 'diff') {
-          const isDiff = num1Binary![position] !== num2Binary![position];
+          const isDiff = num1Binary![binaryPosition] !== num2Binary![binaryPosition];
           bitValue = isDiff ? '1' : '0';
           className = `bit-cell ${isDiff ? 'bit-diff' : 'bit-0'}`;
         } else {
-          bitValue = binary[position];
+          bitValue = binary[binaryPosition];
           className = `bit-cell ${bitValue === '1' ? 'bit-1' : 'bit-0'}`;
         }
         
         return (
           <td
-            key={`${type}-${index}`}
+            key={`${type}-${displayIndex}`}
             className={className}
             style={tableCellStyle}
-            data-position={position}
+            data-position={binaryPosition}
             data-value={bitValue}
-            onMouseOver={(event) => handleCellMouseOver(event, position, bitValue, type, index)}
+            onMouseOver={(event) => handleCellMouseOver(event, binaryPosition, bitValue, type, displayIndex)}
             onMouseOut={handleCellMouseOut}
           >
             <span className="bit-value">{bitValue}</span>
