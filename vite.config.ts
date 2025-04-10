@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/leetcode-461-hamming-distance/',
+  build: {
+    assetsInlineLimit: 0, // 确保所有资源文件都作为单独的文件
+  }
 }) 
