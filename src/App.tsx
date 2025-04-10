@@ -30,7 +30,7 @@ function App() {
       </a>
       
       <div className="app-content">
-        <h1>汉明距离可视化</h1>
+        <h1>汉明距离计算动画演示</h1>
         <p>
           <a 
             href="https://leetcode.cn/problems/hamming-distance/" 

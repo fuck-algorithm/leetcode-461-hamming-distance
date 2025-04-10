@@ -1,4 +1,4 @@
-# 汉明距离可视化 (LeetCode 461)
+# 汉明距离计算动画演示 (LeetCode 461)
 
 ![汉明距离](https://img.shields.io/badge/算法-汉明距离-blue)
 ![React](https://img.shields.io/badge/framework-React-61dafb)
