@@ -10,11 +10,11 @@
 }
 
 .app-content {
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
   text-align: center;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 100%;
 }
 
 .github-corner {

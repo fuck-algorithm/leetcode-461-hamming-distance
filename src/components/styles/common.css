@@ -5,6 +5,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+  background-color: #ffffff;
 }
 
 .github-corner {
@@ -15,9 +16,9 @@ body {
 }
 
 .app-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
