@@ -138,41 +138,43 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
   return (
     <div className="hamming-distance-container">
       <div className="input-section">
-        <div className="input-group">
-          <label htmlFor="num1">整数 1:</label>
-          <input
-            type="text"
-            id="num1"
-            value={num1Input}
-            onChange={(e) => handleInputChange(e, true)}
-            onBlur={() => handleInputBlur(true)}
-            className={num1Error ? 'error' : ''}
-          />
-          <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
-          <div className="error-message">{num1Error}</div>
+        <div className="input-controls">
+          <div className="input-group">
+            <label htmlFor="num1">整数 1:</label>
+            <input
+              type="text"
+              id="num1"
+              value={num1Input}
+              onChange={(e) => handleInputChange(e, true)}
+              onBlur={() => handleInputBlur(true)}
+              className={num1Error ? 'error' : ''}
+            />
+            <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
+            <div className="error-message">{num1Error}</div>
+          </div>
+          
+          <div className="input-group">
+            <label htmlFor="num2">整数 2:</label>
+            <input
+              type="text"
+              id="num2"
+              value={num2Input}
+              onChange={(e) => handleInputChange(e, false)}
+              onBlur={() => handleInputBlur(false)}
+              className={num2Error ? 'error' : ''}
+            />
+            <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
+            <div className="error-message">{num2Error}</div>
+          </div>
+
+          <button 
+            className="random-button" 
+            onClick={generateRandomExample}
+            ref={buttonRef}
+          >
+            🎲 随机示例
+          </button>
         </div>
-        
-        <div className="input-group">
-          <label htmlFor="num2">整数 2:</label>
-          <input
-            type="text"
-            id="num2"
-            value={num2Input}
-            onChange={(e) => handleInputChange(e, false)}
-            onBlur={() => handleInputBlur(false)}
-            className={num2Error ? 'error' : ''}
-          />
-          <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
-          <div className="error-message">{num2Error}</div>
-        </div>
-        
-        <button 
-          className="random-button" 
-          onClick={generateRandomExample}
-          ref={buttonRef}
-        >
-          🎲 随机示例
-        </button>
       </div>
       
       <div className="result-section">
