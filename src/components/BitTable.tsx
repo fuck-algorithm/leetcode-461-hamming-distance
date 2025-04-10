@@ -201,7 +201,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   
   return (
     <div className={getTableClassNames()} ref={containerRef}>
-      <h3>32位二进制表示</h3>
+      <h3>两个32位整数的二进制表示</h3>
       
       <div className="bit-table-container" ref={tableContainerRef}>
         <table className="bit-table" style={{ tableLayout: 'fixed' }}>

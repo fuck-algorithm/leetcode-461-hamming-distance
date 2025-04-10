@@ -7,14 +7,23 @@ interface HammingDistanceProps {
   initialNum2?: number;
 }
 
+// 生成32位范围内的随机整数
+const generateRandomInt = (): number => {
+  return Math.floor(Math.random() * 4294967295); // 2^32 - 1
+};
+
 const HammingDistance: React.FC<HammingDistanceProps> = ({
-  initialNum1 = 1,
-  initialNum2 = 4,
+  initialNum1,
+  initialNum2,
 }) => {
-  const [num1, setNum1] = useState<number>(initialNum1);
-  const [num2, setNum2] = useState<number>(initialNum2);
-  const [num1Input, setNum1Input] = useState<string>(initialNum1.toString());
-  const [num2Input, setNum2Input] = useState<string>(initialNum2.toString());
+  // 如果未提供初始值，则生成随机数
+  const randomNum1 = initialNum1 ?? generateRandomInt();
+  const randomNum2 = initialNum2 ?? generateRandomInt();
+
+  const [num1, setNum1] = useState<number>(randomNum1);
+  const [num2, setNum2] = useState<number>(randomNum2);
+  const [num1Input, setNum1Input] = useState<string>(randomNum1.toString());
+  const [num2Input, setNum2Input] = useState<string>(randomNum2.toString());
   const [num1Error, setNum1Error] = useState<string>('');
   const [num2Error, setNum2Error] = useState<string>('');
   const [distance, setDistance] = useState<number | null>(null);
@@ -188,7 +197,6 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
         </h2>
         
         <div className="bit-visualization">
-          <h3>32位二进制表示</h3>
           <BitTable num1={num1} num2={num2} />
         </div>
       </div>
