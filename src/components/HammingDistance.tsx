@@ -13,9 +13,45 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
 }) => {
   const [num1, setNum1] = useState<number>(initialNum1);
   const [num2, setNum2] = useState<number>(initialNum2);
+  const [num1Input, setNum1Input] = useState<string>(initialNum1.toString());
+  const [num2Input, setNum2Input] = useState<string>(initialNum2.toString());
+  const [num1Error, setNum1Error] = useState<string>('');
+  const [num2Error, setNum2Error] = useState<string>('');
   const [distance, setDistance] = useState<number | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const distanceValueRef = useRef<HTMLSpanElement>(null);
+
+  // 常量
+  const MIN_VALUE = 0;
+  const MAX_VALUE = 4294967295; // 2^32 - 1
+
+  // 校验数字输入
+  const validateNumber = (value: string): { valid: boolean; error: string; value: number } => {
+    const trimmed = value.trim();
+    
+    // 如果是空字符串
+    if (trimmed === '') {
+      return { valid: false, error: '请输入一个数字', value: 0 };
+    }
+    
+    // 检查是否是有效数字
+    if (!/^\d+$/.test(trimmed)) {
+      return { valid: false, error: '请输入有效的整数', value: 0 };
+    }
+    
+    const numValue = Number(trimmed);
+    
+    // 检查范围
+    if (numValue < MIN_VALUE) {
+      return { valid: false, error: `最小值为 ${MIN_VALUE}`, value: MIN_VALUE };
+    }
+    
+    if (numValue > MAX_VALUE) {
+      return { valid: false, error: `最大值为 ${MAX_VALUE}`, value: MAX_VALUE };
+    }
+    
+    return { valid: true, error: '', value: numValue };
+  };
 
   // 计算汉明距离的函数
   const calculateHammingDistance = (a: number, b: number): number => {
@@ -41,6 +77,10 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
     
     setNum1(newNum1);
     setNum2(newNum2);
+    setNum1Input(newNum1.toString());
+    setNum2Input(newNum2.toString());
+    setNum1Error('');
+    setNum2Error('');
     
     // 直接计算汉明距离，不添加任何视觉效果
     setDistance(calculateHammingDistance(newNum1, newNum2));
@@ -49,12 +89,39 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
   // 处理输入变化
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, isNum1: boolean) => {
     const value = e.target.value;
-    const numValue = parseInt(value) || 0;
     
     if (isNum1) {
-      setNum1(numValue);
+      setNum1Input(value);
+      const validation = validateNumber(value);
+      setNum1Error(validation.error);
+      if (validation.valid) {
+        setNum1(validation.value);
+      }
     } else {
-      setNum2(numValue);
+      setNum2Input(value);
+      const validation = validateNumber(value);
+      setNum2Error(validation.error);
+      if (validation.valid) {
+        setNum2(validation.value);
+      }
+    }
+  };
+
+  // 处理输入框失去焦点
+  const handleInputBlur = (isNum1: boolean) => {
+    const value = isNum1 ? num1Input : num2Input;
+    const validation = validateNumber(value);
+    
+    if (isNum1) {
+      if (!validation.valid) {
+        setNum1Input(num1.toString());
+        setNum1Error('');
+      }
+    } else {
+      if (!validation.valid) {
+        setNum2Input(num2.toString());
+        setNum2Error('');
+      }
     }
   };
 
@@ -76,10 +143,13 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
           <input
             type="text"
             id="num1"
-            value={num1}
+            value={num1Input}
             onChange={(e) => handleInputChange(e, true)}
+            onBlur={() => handleInputBlur(true)}
+            className={num1Error ? 'error' : ''}
           />
           <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
+          <div className="error-message">{num1Error}</div>
         </div>
         
         <div className="input-group">
@@ -87,10 +157,13 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
           <input
             type="text"
             id="num2"
-            value={num2}
+            value={num2Input}
             onChange={(e) => handleInputChange(e, false)}
+            onBlur={() => handleInputBlur(false)}
+            className={num2Error ? 'error' : ''}
           />
           <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
+          <div className="error-message">{num2Error}</div>
         </div>
         
         <button 
