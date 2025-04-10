@@ -195,7 +195,6 @@
 
 .input-section {
   display: flex;
-  flex-direction: column;
   margin-bottom: 20px;
   padding: 15px;
   background: #f9f9f9;
@@ -203,14 +202,12 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.labels-row {
-  display: flex;
-  margin-bottom: 8px;
-}
-
 .inputs-row {
   display: flex;
+  width: 100%;
   align-items: flex-start;
+  gap: 15px;
+  justify-content: center;
 }
 
 .input-cell {
@@ -219,13 +216,22 @@
   box-sizing: border-box;
 }
 
+.button-cell {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
 .input-label {
   font-weight: 600;
   color: #333;
   margin-bottom: 8px;
+  height: 20px;
+  display: block;
 }
 
-.input-cell input {
+.input-cell input, .random-button {
   width: 100%;
   padding: 10px 12px;
   border: 2px solid #ddd;
@@ -233,42 +239,16 @@
   font-size: 14px;
   transition: all 0.3s ease;
   outline: none;
-  height: 38px;
+  height: 40px;
   box-sizing: border-box;
-}
-
-.input-cell input:focus {
-  border-color: #4caf50;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-}
-
-.input-cell input.error {
-  border-color: #f44336;
-}
-
-.input-cell input.error:focus {
-  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
-}
-
-.button-cell {
-  display: flex;
-  align-items: flex-start;
-  padding: 0 10px;
+  margin: 0;
 }
 
 .random-button {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  outline: none;
-  height: 38px;
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -286,10 +266,24 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.input-cell input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.input-cell input.error {
+  border-color: #f44336;
+}
+
+.input-cell input.error:focus {
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
+}
+
 .input-limit {
   font-size: 11px;
   color: #666;
   margin-top: 4px;
+  height: 15px;
 }
 
 .error-message {
@@ -300,7 +294,6 @@
   transition: all 0.3s ease;
 }
 
-/* 红色高亮表示汉明距离中的不同位 */
 .distance-value {
   color: #f44336;
   font-weight: bold;

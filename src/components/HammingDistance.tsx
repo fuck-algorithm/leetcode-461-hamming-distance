@@ -176,6 +176,8 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
             >
               🎲 随机示例
             </button>
+            <div className="input-limit">&nbsp;</div>
+            <div className="error-message">&nbsp;</div>
           </div>
         </div>
       </div>
