@@ -90,13 +90,14 @@
 }
 
 .random-button:hover {
-  background-color: #2a7e43;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px); /* 上浮效果 */
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .random-button:active {
-  transform: scale(0.98); /* 点击时缩小效果 */
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 按钮波纹效果 */
@@ -194,9 +195,7 @@
 
 .input-section {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
   margin-bottom: 20px;
   padding: 15px;
   background: #f9f9f9;
@@ -204,19 +203,19 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
+.input-controls {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .input-group {
   display: flex;
   flex-direction: column;
   width: 240px;
   min-width: 200px;
-}
-
-.input-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
 }
 
 .input-group label {
@@ -233,6 +232,33 @@
   transition: all 0.3s ease;
   width: 100%;
   outline: none;
+  height: 38px;
+}
+
+.random-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 28px; /* 对齐输入框，考虑了label的高度 */
+}
+
+.random-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  height: 38px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-group input:focus {
@@ -260,31 +286,6 @@
   margin-top: 4px;
   min-height: 18px;
   transition: all 0.3s ease;
-}
-
-.random-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  outline: none;
-}
-
-.random-button:hover {
-  background-color: #45a049;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.random-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 红色高亮表示汉明距离中的不同位 */

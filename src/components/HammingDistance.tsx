@@ -167,13 +167,15 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
             <div className="error-message">{num2Error}</div>
           </div>
 
-          <button 
-            className="random-button" 
-            onClick={generateRandomExample}
-            ref={buttonRef}
-          >
-            🎲 随机示例
-          </button>
+          <div className="random-button-container">
+            <button 
+              className="random-button" 
+              onClick={generateRandomExample}
+              ref={buttonRef}
+            >
+              🎲 随机示例
+            </button>
+          </div>
         </div>
       </div>
       
