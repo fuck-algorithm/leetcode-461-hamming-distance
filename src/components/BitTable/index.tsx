@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BitTableProps } from '../types';
 import { formatNumber, estimateStringWidth } from '../utils';
 import { showTooltip, hideTooltip } from './Tooltip';
@@ -7,6 +8,8 @@ import TableRow from './TableRow';
 import '../styles/BitTable.css';
 
 const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
+  const { t } = useTranslation();
+  
   // 将数字转换为32位二进制字符串
   const num1Binary = num1.toString(2).padStart(32, '0');
   const num2Binary = num2.toString(2).padStart(32, '0');
@@ -43,9 +46,9 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
     // 计算所需的标签宽度
     const num1String = formatNumber(num1);
     const num2String = formatNumber(num2);
-    const label1 = `整数1 (${num1String}):`;
-    const label2 = `整数2 (${num2String}):`;
-    const label3 = `不同位:`;
+    const label1 = `${t('bitTable.int1')} (${num1String}):`;
+    const label2 = `${t('bitTable.int2')} (${num2String}):`;
+    const label3 = `${t('bitTable.diffBits')}:`;
     
     const label1Width = estimateStringWidth(label1);
     const label2Width = estimateStringWidth(label2);
@@ -103,7 +106,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   
   return (
     <div className="bit-table-wrapper" ref={containerRef}>
-      <h3>32位二进制表示</h3>
+      <h3>{t('result.binaryRepresentation')}</h3>
       
       <div className="bit-table-container" ref={tableContainerRef}>
         <table className="bit-table">
@@ -114,7 +117,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
           />
           <tbody>
             <TableRow 
-              label="整数1"
+              label={t('bitTable.int1')}
               binary={num1Binary}
               type="num1"
               bitIndices={bitIndices}
@@ -126,7 +129,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
               numValue={num1}
             />
             <TableRow 
-              label="整数2"
+              label={t('bitTable.int2')}
               binary={num2Binary}
               type="num2"
               bitIndices={bitIndices}
@@ -138,7 +141,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
               numValue={num2}
             />
             <TableRow 
-              label="不同位"
+              label={t('bitTable.diffBits')}
               binary=""
               type="diff"
               num1Binary={num1Binary}

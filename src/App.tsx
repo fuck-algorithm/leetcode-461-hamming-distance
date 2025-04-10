@@ -1,8 +1,21 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { HammingDistance } from './components';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import './App.css';
 
 const App: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  
+  // 获取当前语言，用于决定LeetCode链接
+  const currentLang = i18n.language;
+  const leetcodeUrl = currentLang.startsWith('zh') 
+    ? 'https://leetcode.cn/problems/hamming-distance/' 
+    : 'https://leetcode.com/problems/hamming-distance/';
+  
+  // 更多问题动画链接
+  const moreProblemsUrl = 'https://fuck-algorithm.github.io/leetcode-hot-100/';
+  
   return (
     <>
       <a
@@ -40,25 +53,28 @@ const App: React.FC = () => {
         </svg>
       </a>
       
+      {/* 添加语言切换器 */}
+      <LanguageSwitcher />
+      
       <div className="app-content">
-        <h1>汉明距离计算动画演示</h1>
+        <h1>{t('pageTitle')}</h1>
         <p>
           <a 
-            href="https://leetcode.cn/problems/hamming-distance/" 
+            href={leetcodeUrl}
             target="_blank" 
             rel="noopener noreferrer"
           >
-            LeetCode 461: 汉明距离是两个整数对应二进制位不同的位置的数目
+            {t('leetcodeDesc')}
           </a>
         </p>
         
         <p className="more-problems">
           <a 
-            href="https://fuck-algorithm.github.io/leetcode-hot-100/" 
+            href={moreProblemsUrl}
             target="_blank" 
             rel="noopener noreferrer"
           >
-            查看更多 LeetCode 题目演示动画 →
+            {t('moreProblems')}
           </a>
         </p>
         

@@ -19,35 +19,20 @@ export const showTooltip = (
   const tooltip = document.createElement('div');
   tooltip.classList.add('bit-tooltip');
   
-  // 计算十进制值
-  const decimalValue = type !== 'diff' ? Math.pow(2, position) : 0;
-  
-  // 设置工具提示内容
-  if (type === 'num1') {
+  // 设置工具提示内容 - 更简洁的内容
+  if (type === 'num1' || type === 'num2') {
     tooltip.innerHTML = `
-      <div><strong>位置</strong>: ${index}</div>
-      <div><strong>二进制值</strong>: ${value}</div>
-      <div><strong>十进制值</strong>: ${value === '1' ? decimalValue : 0}</div>
-    `;
-  } else if (type === 'num2') {
-    tooltip.innerHTML = `
-      <div><strong>位置</strong>: ${index}</div>
-      <div><strong>二进制值</strong>: ${value}</div>
-      <div><strong>十进制值</strong>: ${value === '1' ? decimalValue : 0}</div>
+      <div>位置: ${index} | 值: ${value}</div>
     `;
   } else if (type === 'diff') {
     const isDiff = num1Binary[position] !== num2Binary[position];
     if (isDiff) {
       tooltip.innerHTML = `
-        <div><strong>位置</strong>: ${index}</div>
-        <div><strong>差异</strong>: ${num1Binary[position]} ≠ ${num2Binary[position]}</div>
-        <div><strong>贡献</strong>: 1 位汉明距离</div>
+        <div>位置: ${index} | 不同位: ${num1Binary[position]}≠${num2Binary[position]}</div>
       `;
     } else {
       tooltip.innerHTML = `
-        <div><strong>位置</strong>: ${index}</div>
-        <div><strong>状态</strong>: 相同 (${num1Binary[position]} = ${num2Binary[position]})</div>
-        <div><strong>贡献</strong>: 0 位汉明距离</div>
+        <div>位置: ${index} | 相同: ${num1Binary[position]}=${num2Binary[position]}</div>
       `;
     }
   }
@@ -55,9 +40,14 @@ export const showTooltip = (
   // 添加工具提示到单元格
   cell.appendChild(tooltip);
   
-  // 显示工具提示
+  // 显示工具提示，并设置自动隐藏
   setTimeout(() => {
     tooltip.classList.add('visible');
+    
+    // 3秒后自动隐藏提示
+    setTimeout(() => {
+      hideTooltip();
+    }, 3000);
   }, 10);
 };
 
@@ -68,6 +58,6 @@ export const hideTooltip = () => {
     tooltip.classList.remove('visible');
     setTimeout(() => {
       tooltip.remove();
-    }, 300);
+    }, 200);
   }
 }; 

@@ -1,4 +1,5 @@
 import React, { RefObject } from 'react';
+import { useTranslation } from 'react-i18next';
 import BitTable from '../BitTable';
 
 interface ResultSectionProps {
@@ -14,10 +15,12 @@ const ResultSection: React.FC<ResultSectionProps> = ({
   num2,
   distanceValueRef
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="result-section">
       <h2 className="result-title">
-        汉明距离: <span className="distance-value" ref={distanceValueRef}>{distance}</span>
+        {t('result.hammingDistance')} <span className="distance-value" ref={distanceValueRef}>{distance}</span>
       </h2>
       
       <div className="bit-visualization">

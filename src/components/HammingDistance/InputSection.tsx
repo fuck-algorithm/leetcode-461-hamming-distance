@@ -1,4 +1,5 @@
 import React, { RefObject } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface InputSectionProps {
   num1Input: string;
@@ -23,11 +24,13 @@ const InputSection: React.FC<InputSectionProps> = ({
   generateRandomExample,
   buttonRef
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="input-section">
       <div className="inputs-row">
         <div className="input-cell">
-          <div className="input-label">整数 1:</div>
+          <div className="input-label">{t('input.int1')}</div>
           <input
             type="text"
             id="num1"
@@ -37,12 +40,12 @@ const InputSection: React.FC<InputSectionProps> = ({
             onKeyDown={(e) => handleKeyDown(e, true)}
             className={num1Error ? 'error' : ''}
           />
-          <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
+          <div className="input-limit">{t('input.intLimit')}</div>
           <div className="error-message">{num1Error}</div>
         </div>
         
         <div className="input-cell">
-          <div className="input-label">整数 2:</div>
+          <div className="input-label">{t('input.int2')}</div>
           <input
             type="text"
             id="num2"
@@ -52,7 +55,7 @@ const InputSection: React.FC<InputSectionProps> = ({
             onKeyDown={(e) => handleKeyDown(e, false)}
             className={num2Error ? 'error' : ''}
           />
-          <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
+          <div className="input-limit">{t('input.intLimit')}</div>
           <div className="error-message">{num2Error}</div>
         </div>
 
@@ -63,7 +66,7 @@ const InputSection: React.FC<InputSectionProps> = ({
             onClick={generateRandomExample}
             ref={buttonRef}
           >
-            🎲 随机示例
+            {t('input.randomExample')}
           </button>
           <div className="input-limit">&nbsp;</div>
           <div className="error-message">&nbsp;</div>

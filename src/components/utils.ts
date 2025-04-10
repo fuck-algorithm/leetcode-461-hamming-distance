@@ -1,4 +1,5 @@
 import { MIN_VALUE, MAX_VALUE, ValidationResult } from './types';
+import i18next from 'i18next';
 
 // 生成32位范围内的随机整数
 export const generateRandomInt = (): number => {
@@ -26,23 +27,23 @@ export const validateNumber = (value: string): ValidationResult => {
   
   // 如果是空字符串
   if (trimmed === '') {
-    return { valid: false, error: '请输入一个数字', value: 0 };
+    return { valid: false, error: i18next.t('validation.invalidNumber'), value: 0 };
   }
   
   // 检查是否是有效数字
   if (!/^\d+$/.test(trimmed)) {
-    return { valid: false, error: '请输入有效的整数', value: 0 };
+    return { valid: false, error: i18next.t('validation.invalidNumber'), value: 0 };
   }
   
   const numValue = Number(trimmed);
   
   // 检查范围
-  if (numValue < MIN_VALUE) {
-    return { valid: false, error: `最小值为 ${MIN_VALUE}`, value: MIN_VALUE };
-  }
-  
-  if (numValue > MAX_VALUE) {
-    return { valid: false, error: `最大值为 ${MAX_VALUE}`, value: MAX_VALUE };
+  if (numValue < MIN_VALUE || numValue > MAX_VALUE) {
+    return { 
+      valid: false, 
+      error: i18next.t('validation.outOfRange'), 
+      value: numValue < MIN_VALUE ? MIN_VALUE : MAX_VALUE 
+    };
   }
   
   return { valid: true, error: '', value: numValue };
