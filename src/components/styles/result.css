@@ -1,0 +1,21 @@
+/* 结果区域样式 */
+.result-section {
+  margin-top: 30px;
+}
+
+.result-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.distance-value {
+  color: #f44336;
+  font-weight: bold;
+  font-size: 1.2em;
+  transition: all 0.3s ease;
+}
+
+.bit-visualization {
+  margin-top: 20px;
+} 

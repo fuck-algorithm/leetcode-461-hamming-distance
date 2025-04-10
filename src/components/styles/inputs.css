@@ -1,0 +1,79 @@
+/* 输入区域样式 */
+.input-section {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.inputs-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+}
+
+.input-cell {
+  flex: 1;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.button-cell {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.input-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  height: 20px;
+  display: block;
+}
+
+.input-cell input, .random-button {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+  height: 40px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.input-cell input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.input-cell input.error {
+  border-color: #f44336;
+}
+
+.input-cell input.error:focus {
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
+}
+
+.input-limit {
+  font-size: 11px;
+  color: #666;
+  margin-top: 4px;
+  height: 15px;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 4px;
+  min-height: 18px;
+  transition: all 0.3s ease;
+} 

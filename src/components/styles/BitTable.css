@@ -1,0 +1,114 @@
+/* BitTable 组件样式 */
+.bit-table-wrapper {
+  margin: 20px auto;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.bit-table-container {
+  margin-top: 20px;
+}
+
+.bit-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: auto;
+}
+
+.bit-label {
+  text-align: right;
+  padding-right: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.bit-header {
+  padding: 8px;
+  border-bottom: 2px solid #ddd;
+  font-weight: normal;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.bit-cell {
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 位单元格样式 */
+.bit-0 {
+  background-color: #f0f0f0;
+  color: #666;
+  animation: none !important;
+  transition: none !important;
+}
+
+.bit-0 .bit-value {
+  animation: none !important;
+  transition: none !important;
+}
+
+.bit-0:hover {
+  background-color: #e8e8e8;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.bit-1 {
+  background-color: #bbdefb;
+  color: #333;
+}
+
+.bit-1:hover {
+  background-color: #90caf9;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bit-diff {
+  background-color: #ef9a9a;
+  color: #333;
+}
+
+.bit-diff:hover {
+  background-color: #e57373;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 工具提示样式 */
+.bit-tooltip {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: rgba(51, 51, 51, 0.95);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.bit-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(51, 51, 51, 0.95) transparent transparent transparent;
+}
+
+.bit-tooltip.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+} 

@@ -12,6 +12,9 @@
 .app-content {
   padding: 2rem;
   width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .github-corner {
@@ -79,6 +82,7 @@
 h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 p {
