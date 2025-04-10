@@ -567,4 +567,31 @@
     font-size: 1.2rem;
     margin-bottom: 1rem;
   }
+}
+
+/* 添加未使用二进制位的样式 */
+.bit-cell.unused {
+  background-color: #f5f5f5;
+  opacity: 0.7;
+}
+
+.bit-cell.unused .bit-value {
+  color: #aaa;
+}
+
+.bit-cell.bit-1.unused {
+  background-color: rgba(144, 238, 144, 0.3);
+}
+
+.bit-cell.bit-0.unused {
+  background-color: rgba(240, 248, 255, 0.3);
+}
+
+.bit-cell.bit-diff.unused {
+  background-color: rgba(255, 182, 193, 0.3);
+}
+
+/* 为了强调有效位，增加一点过渡效果 */
+.bit-cell {
+  transition: background-color 0.2s ease;
 } 
