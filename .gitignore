@@ -7,7 +7,7 @@
 /coverage
 
 # 构建目录
-# /dist 不再忽略 dist 目录，因为我们需要将它提交到 gh-pages 分支
+/dist
 /build
 
 # 环境变量文件
