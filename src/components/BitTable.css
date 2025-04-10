@@ -97,21 +97,165 @@
   text-align: center;
   font-weight: bold;
   border: 1px solid #eee;
-  transition: all 0.2s;
+  transition: all 0.3s;
   padding: 0.25rem 0;
-  position: relative; /* 为内部数字定位 */
-  animation: breatheBit 2.5s infinite; /* 单元格的呼吸效果 */
-  cursor: pointer; /* 指示可交互 */
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transform-origin: center;
+  /* 添加3D效果的变换 */
+  transform-style: preserve-3d;
+  perspective: 800px;
 }
 
-@keyframes breatheBit {
+/* 位值为0的格子样式 */
+.bit-0 {
+  background-color: #f0f0f0;
+  color: #666;
+  animation: none !important;
+  transition: none !important;
+}
+
+.bit-0:hover {
+  background-color: #e8e8e8;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* 位值为1的格子样式 */
+.bit-1 {
+  background-color: #4285f4;
+  color: white;
+  /* 添加脉冲动画 */
+  animation: pulse 3s infinite;
+}
+
+.bit-1:hover {
+  background-color: #1a73e8;
+  border-color: #0d47a1;
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 5px 15px rgba(13, 71, 161, 0.4);
+  z-index: 10;
+}
+
+/* 添加脉冲动画 */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(66, 133, 244, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(66, 133, 244, 0.7);
+  }
+}
+
+/* 不同位的格子样式 */
+.bit-diff {
+  background-color: #ea4335;
+  color: white;
+  /* 添加闪烁动画 */
+  animation: blink 2s infinite;
+}
+
+.bit-diff:hover {
+  background-color: #d32f2f;
+  border-color: #b71c1c;
+  transform: translateY(-3px) scale(1.08) rotate(1deg);
+  box-shadow: 0 5px 15px rgba(198, 40, 40, 0.5);
+  z-index: 10;
+}
+
+/* 添加闪烁动画 */
+@keyframes blink {
   0%, 100% {
     opacity: 1;
   }
   50% {
-    opacity: 0.95;
+    opacity: 0.8;
   }
+}
+
+/* 添加点击效果 */
+.bit-1:active, .bit-diff:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.1s;
+}
+
+/* 位数字的动画效果 */
+.bit-value {
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.bit-1 .bit-value {
+  animation: float 3s ease-in-out infinite;
+  text-shadow: 0 0 3px rgba(255,255,255,0.5);
+}
+
+.bit-diff .bit-value {
+  animation: shake 3s ease-in-out infinite;
+  text-shadow: 0 0 5px rgba(255,255,255,0.7);
+}
+
+/* 添加浮动动画 */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* 添加抖动动画 */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-1px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(1px);
+  }
+}
+
+/* 优化波浪动画 */
+.bit-diff-animated {
+  animation: wave 1.2s ease-in-out;
+  z-index: 5;
+}
+
+@keyframes wave {
+  0% {
+    background-color: #FF5252;
+    transform: scale(1) translateY(0);
+  }
+  30% {
+    background-color: #FF7676;
+    transform: scale(1.2) translateY(-5px);
+    box-shadow: 0 10px 15px rgba(255, 82, 82, 0.6);
+  }
+  70% {
+    background-color: #FF5252;
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 7px 10px rgba(255, 82, 82, 0.4);
+  }
+  100% {
+    background-color: #ea4335;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 添加鼠标悬停时的灯光效果 */
+.bit-table tbody tr:hover .bit-cell {
+  filter: brightness(0.95);
+}
+
+.bit-table tbody tr:hover .bit-cell:hover {
+  filter: brightness(1.1);
+  z-index: 20;
 }
 
 /* 应用不同的动画延迟，让呼吸效果不同步 */
@@ -125,101 +269,6 @@
 
 .bit-cell:nth-child(3n+2) {
   animation-delay: 0.5s;
-}
-
-.bit-0 {
-  background-color: #f0f0f0;
-  color: #666;
-}
-
-.bit-0:hover {
-  background-color: #e3f2fd;
-  border-color: #2196F3;
-  transform: scale(1.05);
-  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
-  z-index: 10;
-}
-
-.bit-1 {
-  background-color: #4285f4;
-  color: white;
-}
-
-.bit-1:hover {
-  background-color: #1a73e8;
-  border-color: #0d47a1;
-  transform: scale(1.05);
-  box-shadow: 0 0 5px rgba(13, 71, 161, 0.7);
-  z-index: 10;
-}
-
-.bit-diff {
-  background-color: #ea4335;
-  color: white;
-}
-
-.bit-diff:hover {
-  background-color: #ff8a80;
-  border-color: #c62828;
-  transform: scale(1.05);
-  box-shadow: 0 0 5px rgba(198, 40, 40, 0.7);
-  z-index: 10;
-}
-
-/* 波浪动画 */
-.bit-diff-animated {
-  animation: wave 1s ease-in-out;
-  z-index: 2; /* 确保动画元素在上层 */
-}
-
-@keyframes wave {
-  0% {
-    background-color: #FF5252;
-    transform: scale(1);
-  }
-  50% {
-    background-color: #FF7676;
-    transform: scale(1.15);
-    box-shadow: 0 0 8px rgba(255, 82, 82, 0.7);
-  }
-  100% {
-    background-color: #FF5252;
-    transform: scale(1);
-  }
-}
-
-/* 位数字动画 */
-.bit-value {
-  display: inline-block;
-  animation: breatheValue 2.5s infinite ease-in-out;
-}
-
-.bit-cell:hover .bit-value {
-  animation: bounce 0.5s ease-out;
-}
-
-@keyframes breatheValue {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(0.95);
-  }
-}
-
-.bit-value-animated {
-  animation: bounce 0.5s ease-out;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
 }
 
 /* 响应式设计 */
