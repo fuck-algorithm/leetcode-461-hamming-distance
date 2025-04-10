@@ -1,9 +1,76 @@
+/* 汉明距离计算表格美化 - 定义CSS变量方便管理颜色 */
+:root {
+  --color-background: #f8f9fa;
+  --color-white: #ffffff;
+  --color-text-primary: #333;
+  --color-text-secondary: #666;
+  --color-text-tertiary: #999;
+  --color-border-light: #eaeaea;
+  --color-border-medium: #ddd;
+  
+  --color-bit-0-bg: #f0f0f0;
+  --color-bit-0-hover: #e3f2fd;
+  --color-bit-0-text: #666;
+  
+  --color-bit-1-bg: #4285f4;
+  --color-bit-1-hover: #1a73e8;
+  --color-bit-1-border: #0d47a1;
+  --color-bit-1-text: white;
+  
+  --color-bit-diff-bg: #ea4335;
+  --color-bit-diff-hover: #d32f2f;
+  --color-bit-diff-border: #b71c1c;
+  --color-bit-diff-text: white;
+  
+  --shadow-small: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-medium: 0 4px 8px rgba(0,0,0,0.1);
+  --shadow-large: 0 8px 16px rgba(0,0,0,0.1);
+  
+  --anim-duration-fast: 0.2s;
+  --anim-duration-normal: 0.3s;
+  --anim-duration-slow: 0.5s;
+  
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+}
+
+/* 设置暗色主题支持 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1f1f1f;
+    --color-white: #2d2d2d;
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #bbbbbb;
+    --color-text-tertiary: #888888;
+    --color-border-light: #3d3d3d;
+    --color-border-medium: #4d4d4d;
+    
+    --color-bit-0-bg: #383838;
+    --color-bit-0-hover: #424242;
+    --color-bit-0-text: #aaaaaa;
+    
+    --color-bit-1-bg: #1a73e8;
+    --color-bit-1-hover: #4285f4;
+    --color-bit-1-border: #0d47a1;
+    --color-bit-1-text: white;
+    
+    --color-bit-diff-bg: #d32f2f;
+    --color-bit-diff-hover: #e57373;
+    --color-bit-diff-border: #b71c1c;
+    --color-bit-diff-text: white;
+  }
+}
+
 .bit-table-wrapper {
   width: 100%;
-  margin-top: 1rem;
-  font-family: 'Courier New', monospace;
+  margin: 1.5rem auto;
+  font-family: 'Arial', 'Helvetica', sans-serif;
   overflow-x: visible;
-  animation: float 5s infinite ease-in-out; /* 表格整体的浮动效果 */
+  animation: float 5s infinite ease-in-out;
+  background-color: var(--color-background);
+  padding: 0.5rem;
+  border-radius: var(--border-radius-medium);
 }
 
 @keyframes float {
@@ -17,19 +84,40 @@
 
 .bit-table-wrapper h3 {
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
-  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  color: var(--color-text-primary);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+/* 添加标题下划线 */
+.bit-table-wrapper h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-bit-1-bg), var(--color-bit-diff-bg));
+  border-radius: 3px;
 }
 
 .bit-table-container {
   width: 100%;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 1rem;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-medium);
+  padding: 1.5rem;
   overflow-x: visible;
-  transition: opacity 0.5s ease; /* 为淡入效果添加过渡 */
+  transition: all var(--anim-duration-normal) ease;
+  border: 1px solid var(--color-border-light);
+}
+
+.bit-table-container:hover {
+  box-shadow: var(--shadow-large);
 }
 
 .bit-table-container-animated {
@@ -39,100 +127,121 @@
 @keyframes fadeIn {
   from {
     opacity: 0.7;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .bit-table {
   width: 100%;
   margin: 0 auto;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--border-radius-small);
+  overflow: hidden;
 }
 
 .bit-header {
-  padding: 0.25rem 0;
-  font-size: 0.8rem;
-  color: #666;
+  padding: 0.75rem 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
   text-align: center;
-  border-bottom: 2px solid #ddd;
-  animation: breatheHeader 3s infinite ease-in-out; /* 表头的呼吸效果 */
+  border-bottom: 2px solid var(--color-border-medium);
+  font-weight: 600;
+  background-color: rgba(0,0,0,0.02);
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
-@keyframes breatheHeader {
-  0%, 100% {
-    color: #666;
-  }
-  50% {
-    color: #333;
-  }
+/* 添加边框和渐变效果 */
+.bit-header:first-child {
+  border-top-left-radius: var(--border-radius-small);
 }
 
-/* 不再使用固定宽度，改为内联样式动态控制 */
+.bit-header:last-child {
+  border-top-right-radius: var(--border-radius-small);
+}
+
 .bit-label {
   text-align: right;
-  padding-right: 0.5rem;
-  font-weight: normal;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
   white-space: nowrap;
   overflow: visible;
-  font-size: 0.9rem;
+  font-size: 1rem;
   position: sticky;
   left: 0;
-  background-color: white;
-  z-index: 1;
+  background-color: var(--color-white);
+  z-index: 3;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  border-right: 1px solid var(--color-border-light);
+  color: var(--color-text-primary);
 }
 
 /* 大数字的样式 */
 .large-number .bit-label {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .extra-large-number .bit-label {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* 添加表格行交替背景色 */
+.bit-table tbody tr:nth-child(even) {
+  background-color: rgba(0,0,0,0.01);
+}
+
+/* 表格行悬停效果 */
+.bit-table tbody tr:hover {
+  background-color: rgba(0,0,0,0.03);
 }
 
 .bit-cell {
   text-align: center;
   font-weight: bold;
-  border: 1px solid #eee;
-  transition: all 0.3s;
-  padding: 0.25rem 0;
+  border: 1px solid var(--color-border-light);
+  transition: all var(--anim-duration-normal);
+  padding: 0.75rem 0.5rem;
   position: relative;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-small);
   transform-origin: center;
-  /* 添加3D效果的变换 */
   transform-style: preserve-3d;
   perspective: 800px;
+  min-width: 35px; /* 确保足够的列宽 */
+  min-height: 35px; /* 确保足够的行高 */
 }
 
 /* 位值为0的格子样式 */
 .bit-0 {
-  background-color: #f0f0f0;
-  color: #666;
+  background-color: var(--color-bit-0-bg);
+  color: var(--color-bit-0-text);
   animation: none !important;
-  transition: none !important;
+  transition: background-color var(--anim-duration-fast) ease;
 }
 
 .bit-0:hover {
-  background-color: #e8e8e8;
+  background-color: var(--color-bit-0-hover);
   transform: none !important;
   box-shadow: none !important;
 }
 
 /* 位值为1的格子样式 */
 .bit-1 {
-  background-color: #4285f4;
-  color: white;
-  /* 添加脉冲动画 */
+  background: linear-gradient(135deg, var(--color-bit-1-bg), var(--color-bit-1-hover));
+  color: var(--color-bit-1-text);
   animation: pulse 3s infinite;
+  border-color: var(--color-bit-1-border);
 }
 
 .bit-1:hover {
-  background-color: #1a73e8;
-  border-color: #0d47a1;
+  background: linear-gradient(135deg, var(--color-bit-1-hover), var(--color-bit-1-bg));
+  border-color: var(--color-bit-1-border);
   transform: translateY(-3px) scale(1.08);
   box-shadow: 0 5px 15px rgba(13, 71, 161, 0.4);
   z-index: 10;
@@ -150,15 +259,40 @@
 
 /* 不同位的格子样式 */
 .bit-diff {
-  background-color: #ea4335;
-  color: white;
-  /* 添加闪烁动画 */
+  background: linear-gradient(135deg, var(--color-bit-diff-bg), var(--color-bit-diff-hover));
+  color: var(--color-bit-diff-text);
   animation: blink 2s infinite;
+  border-color: var(--color-bit-diff-border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 添加闪光效果 */
+.bit-diff::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+  animation: diffGlow 3s infinite;
+}
+
+@keyframes diffGlow {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 
 .bit-diff:hover {
-  background-color: #d32f2f;
-  border-color: #b71c1c;
+  background: linear-gradient(135deg, var(--color-bit-diff-hover), var(--color-bit-diff-bg));
+  border-color: var(--color-bit-diff-border);
   transform: translateY(-3px) scale(1.08) rotate(1deg);
   box-shadow: 0 5px 15px rgba(198, 40, 40, 0.5);
   z-index: 10;
@@ -186,6 +320,7 @@
   display: inline-block;
   position: relative;
   transition: all 0.3s ease;
+  font-size: 1.1rem;
 }
 
 .bit-1 .bit-value {
@@ -196,6 +331,8 @@
 .bit-diff .bit-value {
   animation: shake 3s ease-in-out infinite;
   text-shadow: 0 0 5px rgba(255,255,255,0.7);
+  font-weight: 900;
+  font-size: 1.2rem;
 }
 
 /* 添加浮动动画 */
@@ -243,7 +380,7 @@
     box-shadow: 0 7px 10px rgba(255, 82, 82, 0.4);
   }
   100% {
-    background-color: #ea4335;
+    background-color: var(--color-bit-diff-bg);
     transform: scale(1) translateY(0);
   }
 }
@@ -271,65 +408,146 @@
   animation-delay: 0.5s;
 }
 
-/* 响应式设计 */
+/* 工具提示样式优化 */
+.bit-tooltip {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: linear-gradient(135deg, rgba(51, 51, 51, 0.95), rgba(34, 34, 34, 0.95));
+  color: white;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-small);
+  font-size: 14px;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  font-weight: normal;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bit-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(34, 34, 34, 0.95) transparent transparent transparent;
+}
+
+.bit-tooltip.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 响应式设计优化 */
 @media (max-width: 1200px) {
   .bit-header {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.4rem;
   }
   
   .bit-cell {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 0.4rem;
+    min-width: 30px;
+  }
+  
+  .bit-value {
+    font-size: 1rem;
+  }
+  
+  .bit-diff .bit-value {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .bit-table-container {
+    padding: 1rem;
+  }
+  
+  .bit-label {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 768px) {
   .bit-header, .bit-cell {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.3rem;
+    min-width: 28px;
   }
   
   .bit-table-wrapper h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
   
   .large-number .bit-label,
   .extra-large-number .bit-label {
     font-size: 0.7rem;
   }
+  
+  .bit-value {
+    font-size: 0.9rem;
+  }
+  
+  .bit-diff .bit-value {
+    font-size: 1rem;
+  }
+  
+  .bit-table-container {
+    padding: 0.8rem;
+    border-radius: var(--border-radius-medium);
+  }
+  
+  /* 优化小屏幕上的滚动条 */
+  .bit-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  
+  .bit-table-container::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .bit-table-container::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 3px;
+  }
+  
+  .bit-table-container::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+  
+  .bit-table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.3);
+  }
 }
 
-/* 工具提示样式 */
-.bit-tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background-color: rgba(33, 33, 33, 0.9);
-  color: white;
-  padding: 5px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 1000;
-  text-align: center;
-  min-width: 100px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.bit-tooltip:after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: rgba(33, 33, 33, 0.9) transparent transparent transparent;
-}
-
-.bit-tooltip.visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+@media (max-width: 576px) {
+  .bit-header, .bit-cell {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.25rem;
+    min-width: 26px;
+  }
+  
+  .bit-label {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .bit-table-wrapper h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
 } 
