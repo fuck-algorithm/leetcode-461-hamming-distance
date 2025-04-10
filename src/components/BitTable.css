@@ -2,7 +2,7 @@
   width: 100%;
   margin-top: 1rem;
   font-family: 'Courier New', monospace;
-  overflow-x: auto;
+  overflow-x: visible;
   animation: float 5s infinite ease-in-out; /* 表格整体的浮动效果 */
 }
 
@@ -28,7 +28,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   padding: 1rem;
-  overflow-x: auto;
+  overflow-x: visible;
   transition: opacity 0.5s ease; /* 为淡入效果添加过渡 */
 }
 

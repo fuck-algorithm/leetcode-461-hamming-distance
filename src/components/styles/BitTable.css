@@ -2,7 +2,7 @@
 .bit-table-wrapper {
   margin: 20px auto;
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: visible;
   width: 100%;
 }
 
