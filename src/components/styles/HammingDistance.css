@@ -8,7 +8,8 @@
 
 /* 主容器样式 */
 .hamming-distance-container {
-  max-width: 1200px;
+  max-width: 98%;
+  width: 98%;
   margin: 0 auto;
   padding: 20px;
   background-color: white;

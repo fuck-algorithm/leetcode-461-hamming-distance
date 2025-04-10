@@ -54,16 +54,17 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
     // 取最大的宽度
     const estimatedLabelWidth = Math.max(label1Width, label2Width, label3Width, 100);
     
-    // 计算剩余可用宽度
-    const availableWidth = Math.max(containerWidth - estimatedLabelWidth, 800);
+    // 保留标签宽度，剩余宽度全部用于表格单元格
+    setLabelWidth(estimatedLabelWidth);
     
-    // 剩余宽度按32个单元格平均分配
+    // 计算适合当前容器的单元格尺寸
+    // 减去标签宽度和一些额外空间，然后平均分配给32个单元格
+    const availableWidth = containerWidth - estimatedLabelWidth - 50; // 50px额外空间用于边距等
     const calculatedCellSize = Math.floor(availableWidth / 32);
     
-    // 更新状态
-    setLabelWidth(estimatedLabelWidth);
-    setCellSize(Math.min(Math.max(calculatedCellSize, 20), 40)); 
-  }, [num1, num2]);
+    // 更新单元格尺寸，确保其在合理范围内
+    setCellSize(Math.min(Math.max(calculatedCellSize, 20), 40));
+  }, [num1, num2, containerRef.current?.clientWidth]); // 添加容器宽度作为依赖项
   
   // 动态样式
   const tableCellStyle = {
@@ -82,7 +83,7 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
       <h3>32位二进制表示</h3>
       
       <div className="bit-table-container" ref={tableContainerRef}>
-        <table className="bit-table" style={{ tableLayout: 'fixed' }}>
+        <table className="bit-table">
           <Header 
             bitIndices={bitIndices}
             labelStyle={labelStyle}

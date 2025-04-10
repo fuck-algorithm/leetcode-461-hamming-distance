@@ -3,16 +3,19 @@
   margin: 20px auto;
   max-width: 100%;
   overflow-x: auto;
+  width: 100%;
 }
 
 .bit-table-container {
   margin-top: 20px;
+  width: 100%;
 }
 
 .bit-table {
   border-collapse: collapse;
   margin: 0 auto;
-  width: auto;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .bit-label {
