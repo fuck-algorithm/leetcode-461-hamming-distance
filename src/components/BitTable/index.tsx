@@ -32,9 +32,9 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
   ) => {
     showTooltip({ event, position, value, type, index }, num1Binary, num2Binary);
   };
-  
-  // 动态计算布局尺寸
-  useEffect(() => {
+
+  // 计算单元格尺寸的函数
+  const calculateCellSize = () => {
     if (!containerRef.current) return;
     
     // 获取容器宽度
@@ -64,7 +64,30 @@ const BitTable: React.FC<BitTableProps> = ({ num1, num2 }) => {
     
     // 更新单元格尺寸，确保其在合理范围内
     setCellSize(Math.min(Math.max(calculatedCellSize, 20), 40));
-  }, [num1, num2, containerRef.current?.clientWidth]); // 添加容器宽度作为依赖项
+  };
+  
+  // 动态计算布局尺寸（初始加载和数字变化时）
+  useEffect(() => {
+    calculateCellSize();
+  }, [num1, num2]); // 数字变化时重新计算
+  
+  // 监听窗口大小变化，重新计算单元格尺寸
+  useEffect(() => {
+    // 初始计算
+    calculateCellSize();
+    
+    // 添加窗口调整大小事件监听器
+    const handleResize = () => {
+      calculateCellSize();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // 清理事件监听器
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // 空依赖数组确保只运行一次
   
   // 动态样式
   const tableCellStyle = {
