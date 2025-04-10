@@ -7,6 +7,7 @@ interface InputSectionProps {
   num2Error: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>, isNum1: boolean) => void;
   handleInputBlur: (isNum1: boolean) => void;
+  handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>, isNum1: boolean) => void;
   generateRandomExample: () => void;
   buttonRef: RefObject<HTMLButtonElement>;
 }
@@ -18,6 +19,7 @@ const InputSection: React.FC<InputSectionProps> = ({
   num2Error,
   handleInputChange,
   handleInputBlur,
+  handleKeyDown,
   generateRandomExample,
   buttonRef
 }) => {
@@ -32,6 +34,7 @@ const InputSection: React.FC<InputSectionProps> = ({
             value={num1Input}
             onChange={(e) => handleInputChange(e, true)}
             onBlur={() => handleInputBlur(true)}
+            onKeyDown={(e) => handleKeyDown(e, true)}
             className={num1Error ? 'error' : ''}
           />
           <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>
@@ -46,6 +49,7 @@ const InputSection: React.FC<InputSectionProps> = ({
             value={num2Input}
             onChange={(e) => handleInputChange(e, false)}
             onBlur={() => handleInputBlur(false)}
+            onKeyDown={(e) => handleKeyDown(e, false)}
             className={num2Error ? 'error' : ''}
           />
           <div className="input-limit">请输入 0 至 4,294,967,295 之间的整数</div>

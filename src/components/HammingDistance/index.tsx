@@ -60,6 +60,48 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
     }
   };
 
+  // 处理键盘上下键
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, isNum1: boolean) => {
+    // 只处理上下箭头键事件
+    if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
+      return;
+    }
+    
+    e.preventDefault(); // 阻止默认行为
+
+    const currentValue = isNum1 ? num1 : num2;
+    
+    let newValue: number;
+    
+    if (e.key === 'ArrowUp') {
+      // 上箭头键，增加1
+      newValue = currentValue + 1;
+      // 确保不超过最大值 (2^32 - 1)
+      if (newValue > 4294967295) {
+        newValue = 4294967295;
+      }
+    } else {
+      // 下箭头键，减少1
+      newValue = currentValue - 1;
+      // 确保不小于0
+      if (newValue < 0) {
+        newValue = 0;
+      }
+    }
+    
+    const newInputValue = newValue.toString();
+    
+    if (isNum1) {
+      setNum1(newValue);
+      setNum1Input(newInputValue);
+      setNum1Error('');
+    } else {
+      setNum2(newValue);
+      setNum2Input(newInputValue);
+      setNum2Error('');
+    }
+  };
+
   // 处理输入框失去焦点
   const handleInputBlur = (isNum1: boolean) => {
     const value = isNum1 ? num1Input : num2Input;
@@ -92,6 +134,7 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
         num2Error={num2Error}
         handleInputChange={handleInputChange}
         handleInputBlur={handleInputBlur}
+        handleKeyDown={handleKeyDown}
         generateRandomExample={generateRandomExample}
         buttonRef={buttonRef}
       />
