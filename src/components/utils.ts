@@ -1,9 +1,26 @@
 import { MIN_VALUE, MAX_VALUE, ValidationResult } from './types';
 import i18next from 'i18next';
 
-// 生成32位范围内的随机整数
+// 生成随机整数，使用指数分布使小数字和大数字出现的概率更平衡
 export const generateRandomInt = (): number => {
-  return Math.floor(Math.random() * MAX_VALUE);
+  // 随机数生成策略:
+  // 1. 33%概率生成0-100的小数字
+  // 2. 33%概率生成100-10000的中等数字
+  // 3. 34%概率生成10000-MAX_VALUE的大数字
+  const rand = Math.random();
+  
+  if (rand < 0.33) {
+    // 小数字 (0-100)
+    return Math.floor(Math.random() * 100);
+  } else if (rand < 0.66) {
+    // 中等数字 (100-10000)
+    return Math.floor(Math.random() * 9900) + 100;
+  } else {
+    // 大数字 (10000-MAX_VALUE)
+    // 使用对数分布使得较小的大数字出现的概率高于非常大的数字
+    const exponent = Math.random() * Math.log2(MAX_VALUE - 10000);
+    return Math.floor(Math.pow(2, exponent)) + 10000;
+  }
 };
 
 // 计算汉明距离的函数
