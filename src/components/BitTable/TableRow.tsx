@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TableRowProps } from './types';
 
 const TableRow: React.FC<TableRowProps> = ({
@@ -15,6 +15,18 @@ const TableRow: React.FC<TableRowProps> = ({
   formatNumber,
   numValue
 }) => {
+  // 追踪点击的单元格
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+
+  // 处理单元格点击
+  const handleCellClick = (index: number) => {
+    if (clickedIndex === index) {
+      setClickedIndex(null);
+    } else {
+      setClickedIndex(index);
+    }
+  };
+
   return (
     <tr>
       <td className="bit-label" style={labelStyle}>
@@ -36,6 +48,11 @@ const TableRow: React.FC<TableRowProps> = ({
           bitValue = binary[binaryPosition];
           className = `bit-cell ${bitValue === '1' ? 'bit-1' : 'bit-0'}`;
         }
+
+        // 如果当前单元格被点击，添加激活类
+        if (clickedIndex === displayIndex) {
+          className += ' active';
+        }
         
         return (
           <td
@@ -46,6 +63,7 @@ const TableRow: React.FC<TableRowProps> = ({
             data-value={bitValue}
             onMouseOver={(event) => handleCellMouseOver(event, binaryPosition, bitValue, type, displayIndex)}
             onMouseOut={handleCellMouseOut}
+            onClick={() => handleCellClick(displayIndex)}
           >
             <span className="bit-value">{bitValue}</span>
           </td>

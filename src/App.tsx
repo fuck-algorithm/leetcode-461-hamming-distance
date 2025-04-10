@@ -52,6 +52,16 @@ const App: React.FC = () => {
           </a>
         </p>
         
+        <p className="more-problems">
+          <a 
+            href="https://fuck-algorithm.github.io/leetcode-hot-100/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            查看更多 LeetCode 题目演示动画 →
+          </a>
+        </p>
+        
         <HammingDistance />
       </div>
     </>

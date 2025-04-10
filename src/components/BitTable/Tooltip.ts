@@ -19,17 +19,36 @@ export const showTooltip = (
   const tooltip = document.createElement('div');
   tooltip.classList.add('bit-tooltip');
   
+  // 计算十进制值
+  const decimalValue = type !== 'diff' ? Math.pow(2, position) : 0;
+  
   // 设置工具提示内容
   if (type === 'num1') {
-    tooltip.textContent = `整数1的第${index}位: ${value}`;
+    tooltip.innerHTML = `
+      <div><strong>位置</strong>: ${index}</div>
+      <div><strong>二进制值</strong>: ${value}</div>
+      <div><strong>十进制值</strong>: ${value === '1' ? decimalValue : 0}</div>
+    `;
   } else if (type === 'num2') {
-    tooltip.textContent = `整数2的第${index}位: ${value}`;
+    tooltip.innerHTML = `
+      <div><strong>位置</strong>: ${index}</div>
+      <div><strong>二进制值</strong>: ${value}</div>
+      <div><strong>十进制值</strong>: ${value === '1' ? decimalValue : 0}</div>
+    `;
   } else if (type === 'diff') {
     const isDiff = num1Binary[position] !== num2Binary[position];
     if (isDiff) {
-      tooltip.textContent = `第${index}位不同: ${num1Binary[position]} ≠ ${num2Binary[position]}`;
+      tooltip.innerHTML = `
+        <div><strong>位置</strong>: ${index}</div>
+        <div><strong>差异</strong>: ${num1Binary[position]} ≠ ${num2Binary[position]}</div>
+        <div><strong>贡献</strong>: 1 位汉明距离</div>
+      `;
     } else {
-      tooltip.textContent = `第${index}位相同: ${num1Binary[position]} = ${num2Binary[position]}`;
+      tooltip.innerHTML = `
+        <div><strong>位置</strong>: ${index}</div>
+        <div><strong>状态</strong>: 相同 (${num1Binary[position]} = ${num2Binary[position]})</div>
+        <div><strong>贡献</strong>: 0 位汉明距离</div>
+      `;
     }
   }
   
