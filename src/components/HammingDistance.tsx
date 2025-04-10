@@ -138,9 +138,9 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
   return (
     <div className="hamming-distance-container">
       <div className="input-section">
-        <div className="input-controls">
-          <div className="input-group">
-            <label htmlFor="num1">整数 1:</label>
+        <div className="inputs-row">
+          <div className="input-cell">
+            <div className="input-label">整数 1:</div>
             <input
               type="text"
               id="num1"
@@ -153,8 +153,8 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
             <div className="error-message">{num1Error}</div>
           </div>
           
-          <div className="input-group">
-            <label htmlFor="num2">整数 2:</label>
+          <div className="input-cell">
+            <div className="input-label">整数 2:</div>
             <input
               type="text"
               id="num2"
@@ -167,7 +167,8 @@ const HammingDistance: React.FC<HammingDistanceProps> = ({
             <div className="error-message">{num2Error}</div>
           </div>
 
-          <div className="random-button-container">
+          <div className="button-cell">
+            <div className="input-label">&nbsp;</div>
             <button 
               className="random-button" 
               onClick={generateRandomExample}

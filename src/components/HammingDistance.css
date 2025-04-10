@@ -195,7 +195,7 @@
 
 .input-section {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin-bottom: 20px;
   padding: 15px;
   background: #f9f9f9;
@@ -203,43 +203,57 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.input-controls {
+.labels-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.inputs-row {
   display: flex;
   align-items: flex-start;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
-.input-group {
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-  min-width: 200px;
+.input-cell {
+  flex: 1;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
-.input-group label {
+.input-label {
   font-weight: 600;
-  margin-bottom: 8px;
   color: #333;
+  margin-bottom: 8px;
 }
 
-.input-group input {
+.input-cell input {
+  width: 100%;
   padding: 10px 12px;
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 14px;
   transition: all 0.3s ease;
-  width: 100%;
   outline: none;
   height: 38px;
+  box-sizing: border-box;
 }
 
-.random-button-container {
+.input-cell input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.input-cell input.error {
+  border-color: #f44336;
+}
+
+.input-cell input.error:focus {
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
+}
+
+.button-cell {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 28px; /* 对齐输入框，考虑了label的高度 */
+  align-items: flex-start;
+  padding: 0 10px;
 }
 
 .random-button {
@@ -261,17 +275,15 @@
   justify-content: center;
 }
 
-.input-group input:focus {
-  border-color: #4caf50;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+.random-button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.input-group input.error {
-  border-color: #f44336;
-}
-
-.input-group input.error:focus {
-  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
+.random-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .input-limit {
