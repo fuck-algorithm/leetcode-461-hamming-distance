@@ -5,7 +5,8 @@ import { formatNumber, estimateStringWidth } from '../utils';
 import { showTooltip, hideTooltip } from './Tooltip';
 import Header from './Header';
 import TableRow from './TableRow';
-import '../styles/BitTable.css';
+import './BitTable.css';
+import './animations.css';
 
 /**
  * 位表格组件

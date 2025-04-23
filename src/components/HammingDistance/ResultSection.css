@@ -18,4 +18,9 @@
 
 .bit-visualization {
   margin-top: 20px;
+}
+
+/* 结果动画效果 */
+.distance-value-animated {
+  animation: fadeIn 0.5s ease-in-out;
 } 

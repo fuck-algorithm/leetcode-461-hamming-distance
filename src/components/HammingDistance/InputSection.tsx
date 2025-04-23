@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
+import './InputSection.css';
 
 /**
  * 输入部分组件接口定义

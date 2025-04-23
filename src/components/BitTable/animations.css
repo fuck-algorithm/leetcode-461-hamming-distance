@@ -1,4 +1,4 @@
-/* 动画样式 */
+/* BitTable 动画样式 */
 @keyframes breathe {
   0% {
     transform: scale(1);
@@ -38,10 +38,6 @@
 
 .bit-value-animated {
   animation: breathe 0.5s ease-in-out;
-}
-
-.distance-value-animated {
-  animation: fadeIn 0.5s ease-in-out;
 }
 
 .bit-table-container-animated {

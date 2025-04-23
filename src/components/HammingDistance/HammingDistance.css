@@ -1,10 +1,4 @@
 /* 汉明距离组件主样式 */
-@import './common.css';
-@import './inputs.css';
-@import './buttons.css';
-@import './result.css';
-@import './BitTable.css';
-@import './animations.css';
 
 /* 主容器样式 */
 .hamming-distance-container {

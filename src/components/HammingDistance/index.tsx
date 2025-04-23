@@ -3,7 +3,8 @@ import { HammingDistanceProps } from '../types';
 import { generateRandomInt, calculateHammingDistance, validateNumber } from '../utils';
 import InputSection from './InputSection';
 import ResultSection from './ResultSection';
-import '../styles/HammingDistance.css';
+import './HammingDistance.css';
+import '../common.css';
 
 /**
  * 汉明距离计算器组件

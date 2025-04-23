@@ -249,25 +249,26 @@ tr:nth-child(2) .bit-cell {
 }
 
 .bit-cell.bit-0.effective-bit {
-  background-color: rgba(0, 123, 255, 0.5) !important;
-  border-color: rgba(0, 123, 255, 0.3);
+  background-color: rgba(108, 194, 239, 0.7) !important;
+  border-color: rgba(108, 194, 239, 0.5);
 }
 
 .bit-cell.bit-diff.effective-bit {
-  background-color: rgba(220, 53, 69, 0.8) !important;
-  font-weight: bold;
-  color: white;
-  border-color: rgba(220, 53, 69, 0.5);
-  transform: scale(1.15);
-  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+  background-color: rgba(245, 90, 60, 0.8) !important;
+  border-color: rgba(245, 90, 60, 0.5);
 }
 
-/* 移除最高有效位的特殊样式（红色箭头） */
+/* 最高有效位的额外强调 */
 .bit-cell.highest-bit {
   position: relative;
 }
 
-/* 删除箭头样式 */
 .bit-cell.highest-bit::before {
-  content: none;
+  content: '↑';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #f44336;
+  font-weight: bold;
 } 
