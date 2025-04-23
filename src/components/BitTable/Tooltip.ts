@@ -74,11 +74,6 @@ export const showTooltip = (
   // 显示工具提示，使用延迟和CSS过渡效果使显示平滑
   setTimeout(() => {
     tooltip.classList.add('visible');
-    
-    // 3秒后自动隐藏提示，避免提示框一直停留
-    setTimeout(() => {
-      hideTooltip();
-    }, 3000);
   }, 10);
 };
 
