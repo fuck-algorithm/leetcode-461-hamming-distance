@@ -18,7 +18,7 @@ English | [简体中文](./README.md)
 
 <div align="center">
   <a href="https://fuck-algorithm.github.io/leetcode-461-hamming-distance/">
-    <img src="./images/demo-animation.gif" alt="Hamming Distance Visualization - English Interface" width="90%" />
+    <img src="./images/demo-animation-en.gif" alt="Hamming Distance Visualization - English Interface" width="90%" />
   </a>
 </div>
 
