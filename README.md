@@ -1,10 +1,6 @@
 # 汉明距离计算动画演示 (LeetCode 461)
 
 <div align="center">
-  <img src="./demo-animation.gif" alt="汉明距离计算动画演示" width="90%" />
-</div>
-
-<div align="center">
 
 ![汉明距离](https://img.shields.io/badge/算法-汉明距离-blue)
 ![React](https://img.shields.io/badge/framework-React-61dafb)
