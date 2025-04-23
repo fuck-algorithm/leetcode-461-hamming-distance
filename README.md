@@ -18,7 +18,7 @@
 
 <div align="center">
   <a href="https://fuck-algorithm.github.io/leetcode-461-hamming-distance/">
-    <img src="./example-zh.png" alt="汉明距离计算动画演示 - 中文界面" width="90%" />
+    <img src="./images/demo-animation.gif" alt="汉明距离计算动画演示 - 中文界面" width="90%" />
   </a>
 </div>
 
