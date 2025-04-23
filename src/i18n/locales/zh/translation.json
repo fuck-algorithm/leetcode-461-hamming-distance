@@ -22,5 +22,11 @@
   "validation": {
     "invalidNumber": "请输入有效的整数",
     "outOfRange": "数字必须在 0 至 4,294,967,295 之间"
+  },
+  "tooltip": {
+    "position": "位置",
+    "value": "值",
+    "different": "不同位",
+    "same": "相同"
   }
 } 

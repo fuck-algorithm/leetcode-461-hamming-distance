@@ -1,4 +1,5 @@
 import { TooltipParams } from './types';
+import i18next from 'i18next';
 
 /**
  * 创建和显示位表格单元格的工具提示
@@ -49,7 +50,7 @@ export const showTooltip = (
   if (type === 'num1' || type === 'num2') {
     // 对于普通数字行，显示位置和值
     tooltip.innerHTML = `
-      <div>位置: ${index} | 值: ${value}</div>
+      <div>${i18next.t('tooltip.position', '位置')}: ${index} | ${i18next.t('tooltip.value', '值')}: ${value}</div>
     `;
   } else if (type === 'diff') {
     // 对于差异行，显示两个数字在该位上的比较结果
@@ -57,12 +58,12 @@ export const showTooltip = (
     if (isDiff) {
       // 不同位，显示不同的值
       tooltip.innerHTML = `
-        <div>位置: ${index} | 不同位: ${num1Binary[position]}≠${num2Binary[position]}</div>
+        <div>${i18next.t('tooltip.position', '位置')}: ${index} | ${i18next.t('tooltip.different', '不同位')}: ${num1Binary[position]}≠${num2Binary[position]}</div>
       `;
     } else {
       // 相同位，显示相同的值
       tooltip.innerHTML = `
-        <div>位置: ${index} | 相同: ${num1Binary[position]}=${num2Binary[position]}</div>
+        <div>${i18next.t('tooltip.position', '位置')}: ${index} | ${i18next.t('tooltip.same', '相同')}: ${num1Binary[position]}=${num2Binary[position]}</div>
       `;
     }
   }
